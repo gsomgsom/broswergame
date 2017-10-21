@@ -103,14 +103,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-12 col-md-3" id="sidebar">
-					<h4>Локации</h4>
-					<div>
-						<a href="/home">Домой</a><br>
-						<a href="/mail">Почта</a><br>
-						<a href="/chat">Чат</a><br>
-						<a href="/battles">Сражения</a><br>
-						<a href="/shop">Магазин</a>
-					</div>
+					<? $this->widget('SidebarLeft') ?>
 				</div>
 				<div class="col-12 col-md-9">
 					<div class="row">

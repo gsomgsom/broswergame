@@ -54,7 +54,7 @@ class User extends CActiveRecord {
 
 	public function scopes() {
 		return [
-			'sorted' => ['order' => 'id DESC'],
+			'sorted' => ['order' => 't.id DESC'],
 		];
 	}
 

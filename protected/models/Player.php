@@ -17,6 +17,7 @@ class Player extends CActiveRecord {
 	public function relations() {
 		return [
 			'user' => [self::HAS_ONE, 'User', ['user_id' => 'id']],
+			'log' => [self::HAS_MANY, 'PlayerLog', ['player_id' => 'id']],
 		];
 	}
 

@@ -81,7 +81,7 @@ class m171022_012439_news extends CDbMigration {
 	}
 
 	public function safeDown() {
-		echo 'Migration down not supported.';
+		$this->dropTable("{{news}}");
 	}
 
 }

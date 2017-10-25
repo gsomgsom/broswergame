@@ -1,4 +1,4 @@
-<ul class="navbar-nav">
+<ul class="navbar-nav top-nav">
 	<li class="nav-item <? if (get_class($this->controller->module) == 'NewsModule'): ?>active<? endif ?>">
 		<a class="nav-link" href="/news">Новости</span></a>
 	</li>

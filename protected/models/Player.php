@@ -55,13 +55,13 @@ class Player extends CActiveRecord {
 			$stateEntry->player_id = $this->id;
 			$stateEntry->alias = $alias;
 		}
-		if (isset($params['state_int'])) {
+		if (in_array('state_int', array_keys($params))) {
 			$stateEntry->state_int = (int)$params['state_int'];
 		}
-		if (isset($params['state_text'])) {
+		if (in_array('state_text', array_keys($params))) {
 			$stateEntry->state_text = $params['state_text'];
 		}
-		if (isset($params['cooldown'])) {
+		if (in_array('cooldown', array_keys($params))) {
 			if (!is_null($params['cooldown'])) {
 				$stateEntry->cooldown = date('Y-m-d H:i:s', $params['cooldown']);
 			}
@@ -69,7 +69,7 @@ class Player extends CActiveRecord {
 				$stateEntry->cooldown = null;
 			}
 		}
-		$stateEntry->save();
+		$result = $stateEntry->save();
 	}
 
 	public function setStateCooldown($alias, $time = null) {

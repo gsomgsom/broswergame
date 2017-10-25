@@ -13,8 +13,17 @@ a {
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
-a.nav-link:hover{
+.top-nav a:hover{
 	color: #fff !important;
+}
+.log-tab {
+	margin-bottom: .5rem;
+}
+.log-tab a {
+	padding: .1rem .2rem;
+}
+.log-tab a:hover {
+	color: #000 !important;
 }
 .main {
 	padding-top: 10px;

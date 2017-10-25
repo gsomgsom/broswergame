@@ -10,8 +10,8 @@ class SearchController extends LoggedController
 
 	// Быстрый поиск желудей
 	public function actionFast() {
-		$searchTimer = $this->user->player->getStateCooldown('search');
-		if ($searchTimer > time()) {
+		$searchVal = $this->user->player->getStateVal('search');
+		if (!is_null($searchVal)) {
 			Yii::app()->user->setFlash('error', Yii::t('error', 'Вы уже заняты поиском.'));
 		}
 		else {
@@ -31,8 +31,8 @@ class SearchController extends LoggedController
 
 	// Долгий поиск желудей
 	public function actionLong() {
-		$searchTimer = $this->user->player->getStateCooldown('search');
-		if ($searchTimer > time()) {
+		$searchVal = $this->user->player->getStateVal('search');
+		if (!is_null($searchVal)) {
 			Yii::app()->user->setFlash('error', Yii::t('error', 'Вы уже заняты поиском.'));
 		}
 		else {
@@ -52,10 +52,10 @@ class SearchController extends LoggedController
 
 	// Прекратить поиски
 	public function actionCancel() {
-		$searchTimer = $this->user->player->getStateCooldown('search');
-		if ($searchTimer > time()) {
-			$this->user->player->setStateCooldown('search', time());
+		$searchVal = $this->user->player->getStateVal('search');
+		if (!is_null($searchVal)) {
 			$this->user->player->setStateVal('search', null);
+			$this->user->player->setStateCooldown('search', null);
 			Yii::app()->user->setFlash('success', Yii::t('success', 'Внезапно вспомнив про очень важные дела вы прервали поиск.'));
 		}
 		else {

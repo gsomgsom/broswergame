@@ -32,7 +32,7 @@ return [
 	],
 	'defaultController' => 'site',
 	'modules' => [
-		'auth', 'cron', 'home', 'location', 'news',
+		'auth', 'cron', 'home', 'location', 'news', 'mail',
 	],
 	'components' => [
 		'assetManager' => array(

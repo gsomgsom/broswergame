@@ -122,8 +122,11 @@
 						<div class="col-12">
 
 							<? if(Yii::app()->user->hasFlash('success')): ?>
-								<div id="alert-success" role="alert" class="alert alert-success alert-dismissible">
+								<div id="alert-success" role="alert" class="alert alert-success alert-dismissible fade show">
 									<?= Yii::app()->user->getFlash('success'); ?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+										<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
 								<script>
 							    	$('#alert-success').delay(4500).fadeOut();
@@ -131,8 +134,11 @@
 							<? endif ?>
 
 							<? if(Yii::app()->user->hasFlash('error')): ?>
-								<div id="alert-error" role="alert" class="alert alert-danger alert-dismissible">
+								<div id="alert-error" role="alert" class="alert alert-danger alert-dismissible fade show">
 									<?= Yii::app()->user->getFlash('error'); ?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+										<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
 								<script>
 									$('#alert-error').delay(4500).fadeOut();

@@ -1,21 +1,20 @@
 <?php
 
-class PlayerLog extends CActiveRecord {
+class PlayerState extends CActiveRecord {
 
 	public function tableName() {
-		return '{{player_logs}}';
+		return '{{player_states}}';
 	}
 
 	public function rules() {
 		return [
-			['dt, html', 'safe'],
+			['player_id, alias, state_int, state_text, cooldown', 'safe'],
 		];
 	}
 
 	public function relations() {
 		return [
 			'player' => [self::BELONGS_TO, 'Player', 'player_id'],
-			'type' => [self::HAS_ONE, 'LogType', ['type_id' => 'id']],
 		];
 	}
 

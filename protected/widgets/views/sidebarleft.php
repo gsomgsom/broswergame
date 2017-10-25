@@ -2,6 +2,7 @@
 	<div>
 		<h4>Локации</h4>
 		<a href="/home" class="<? if (get_class($this->controller->module) == 'HomeModule'): ?>active<? endif ?>">Домой</a><br>
+		<a href="/location/search" class="<? if (get_class($this->controller->module) == 'LocationModule'): ?>active<? endif ?>">Поиск желудей</a><br>
 		<a href="/mail" class="<? if (get_class($this->controller->module) == 'MailModule'): ?>active<? endif ?>">Почта</a><br>
 		<a href="/chat" class="<? if (get_class($this->controller->module) == 'ChatModule'): ?>active<? endif ?>">Чат</a><br>
 		<a href="/battles" class="<? if (get_class($this->controller->module) == 'BattlesModule'): ?>active<? endif ?>">Сражения</a><br>
@@ -10,6 +11,12 @@
 </div>
 <hr>
 <div class="row">
-	<h4>Журнал</h4>
-	<? $this->widget('LastLog') ?>
+	<div>
+		<h4>Таймеры</h4>
+		<? $this->widget('PlayerTimers') ?>
+	</div>
+	<div>
+		<h4>Журнал</h4>
+		<? $this->widget('LastLog') ?>
+	</div>
 </div>

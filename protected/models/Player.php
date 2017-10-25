@@ -16,8 +16,9 @@ class Player extends CActiveRecord {
 
 	public function relations() {
 		return [
-			'user' => [self::HAS_ONE, 'User', ['user_id' => 'id']],
+			'user' => [self::BELONGS_TO, 'User', 'user_id'],
 			'log' => [self::HAS_MANY, 'PlayerLog', ['player_id' => 'id']],
+			'states' => [self::HAS_MANY, 'PlayerState', ['player_id' => 'id']],
 		];
 	}
 
@@ -29,6 +30,54 @@ class Player extends CActiveRecord {
 		return [
 			'sorted' => ['order' => 't.id DESC'],
 		];
+	}
+
+	public function getStateCooldown($alias) {
+		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
+		if (!empty($stateEntry)) {
+			return strtotime($stateEntry->cooldown);
+		}
+		return time()-10; // время из прошлого
+	}
+
+	public function getStateVal($alias) {
+		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
+		if (!empty($stateEntry)) {
+			return $stateEntry->state_text;
+		}
+		return null;
+	}
+
+	public function setStateParams($alias, $params = []) {
+		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
+		if (empty($stateEntry)) {
+			$stateEntry = new PlayerState;
+			$stateEntry->player_id = $this->id;
+			$stateEntry->alias = $alias;
+		}
+		if (isset($params['state_int'])) {
+			$stateEntry->state_int = (int)$params['state_int'];
+		}
+		if (isset($params['state_text'])) {
+			$stateEntry->state_text = $params['state_text'];
+		}
+		if (isset($params['cooldown'])) {
+			if (!is_null($params['cooldown'])) {
+				$stateEntry->cooldown = date('Y-m-d H:i:s', $params['cooldown']);
+			}
+			else {
+				$stateEntry->cooldown = null;
+			}
+		}
+		$stateEntry->save();
+	}
+
+	public function setStateCooldown($alias, $time = null) {
+		$this->setStateParams($alias, ['cooldown' => $time]);
+	}
+
+	public function setStateVal($alias, $val = null) {
+		$this->setStateParams($alias, ['state_text' => $val]);
 	}
 
 	public function getCoinsText() {

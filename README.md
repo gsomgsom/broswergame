@@ -24,3 +24,9 @@ http://www.yiiframework.com/doc/guide/1.1/en/database.migration#creating-migrati
 ./yiic database dump db_data --createSchema=0
 
 Миграции с этой консольной командой попадут в /runtime/, дальше их можно допилить руками (дописать метод safeDown(), обрезать префиксы к таблицам)
+
+### Настройка планировщика ###
+Для работы некоторых игровых механик требуется настройка планировщика.
+Например, для поиска желудей:
+* * * * *	user	wget --spider http://localhost/cron/search/reward >> /var/log/browsergame-search.log
+Более подробные настройки можно посмотреть в контроллерах модуля cron

@@ -27,6 +27,6 @@ http://www.yiiframework.com/doc/guide/1.1/en/database.migration#creating-migrati
 
 ### Настройка планировщика ###
 Для работы некоторых игровых механик требуется настройка планировщика.
-Например, для поиска желудей:
-* * * * *	user	wget --spider http://localhost/cron/search/reward >> /var/log/browsergame-search.log
+Например, для поиска желудей необходимо вызывать раз в минуту:
+wget --spider http://localhost/cron/search/reward >> /var/log/browsergame-search.log
 Более подробные настройки можно посмотреть в контроллерах модуля cron

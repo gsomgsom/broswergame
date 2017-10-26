@@ -14,7 +14,7 @@ class UserForm extends CFormModel {
 			['password, email', 'length', 'max' => 128],
 			['password', 'length', 'min' => 5],
 			['email', 'email'],
-			['email', 'unique', 'className'=>'Users', 'attributeName'=>'email'],
+			['email', 'unique', 'className'=>'User', 'attributeName'=>'email'],
 		];
 	}
 

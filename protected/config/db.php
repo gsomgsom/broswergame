@@ -1,4 +1,6 @@
 <?php
+define('TEST_SERVER', false);
+
 /**
  * Параметры подключения к БД
  */

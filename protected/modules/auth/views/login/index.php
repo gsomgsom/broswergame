@@ -6,12 +6,12 @@
 				</div>
 			</div>
 			<div class="login-box card">
-				<? $form = $this->beginWidget('CActiveForm', array(
+				<? $form = $this->beginWidget('CActiveForm', [
 					'id' => 'login-form',
 					'action' => '/auth/login',
 					'enableAjaxValidation' => true,
-					'htmlOptions' => array('role' => 'form'),
-				)); ?>
+					'htmlOptions' => ['role' => 'form'],
+				]); ?>
 				<div class="card-body">
 					<form class="form-horizontal form-material" id="loginform" action="index.html">
 						<h3 class="box-title m-b-20">Вход в игру</h3>

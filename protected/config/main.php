@@ -29,19 +29,28 @@ return [
 		],
 		'defaultLanguage' => 'ru',
 		'adminEmail' => 'zhelneen@yandex.ru',
+		'senderEmail' => 'noreply@zhelnin.perm.ru',
+		'senderUser' => 'noreply@zhelnin.perm.ru',
+		'senderPass' => 'udz76zYZ',
+		'constructionMode' => !TEST_SERVER, // вместо страницы авторизации выводится заглушка с формой записи на тест
 	],
 	'defaultController' => 'site',
 	'modules' => [
 		'auth', 'cron', 'home', 'location', 'news', 'mail',
 	],
 	'components' => [
-		'assetManager' => array(
+		'assetManager' => [
 			'basePath' => realpath(dirname(__FILE__).'/../../assets/assets'),
 			'baseUrl' => 'http://'.$_SERVER['HTTP_HOST'].'/assets/assets',
-		),
+		],
 		'user' => [
 			'allowAutoLogin' => true,
 			'class' => 'WebUser',
+		],
+		'mailer' => [
+			'class' => 'application.extensions.mailer.EMailer',
+			'pathViews' => 'application.views.email',
+			'pathLayouts' => 'application.views.email.layouts'
 		],
 		'db' => setDbOptions(),
 		'errorHandler' => [

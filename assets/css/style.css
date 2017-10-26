@@ -34,3 +34,11 @@ a {
 .errorMessage {
 	color: red;
 }
+.player-items [class^=border] {
+	display: inline-block;
+	width: 66px;
+	height: 66px;
+	margin: 2px;
+	background-color: #bbb;
+	border: 1px solid;
+}

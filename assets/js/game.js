@@ -1,3 +1,7 @@
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+})
+
 var date = new Date();
 timer_correction = current_time - parseInt(Math.round(date.getTime()/1000));
 

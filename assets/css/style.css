@@ -42,3 +42,9 @@ a {
 	background-color: #bbb;
 	border: 1px solid;
 }
+.nopadding {
+	padding: 0;
+}
+.nomargin {
+	margin: 0;
+}

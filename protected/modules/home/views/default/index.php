@@ -41,19 +41,19 @@
 		<div class="border rounded border-success" style="background-color: #6b6;" data-toggle="tooltip" data-html="true" title="<b>Подарок</b><br><i><small>Судя по звуку, в коробочке что-то есть. И конечно очень ценное! Открыть! Срочно!</small></i>">
 			<img src="/assets/img/present_box_striped64.png">
 		</div>
-		<div class="item-action text-center"><a href="#">открыть</a></div>
+		<div class="item-action text-center" style="background-color: #222;"><a href="#">открыть</a></div>
 	</div>
 	<div class="item-entry">
 		<div class="border rounded border-primary" style="background-color: #66b;" data-toggle="tooltip" data-html="true" title="<b>Красное зелье</b><br><i><small>Восстанавливает здоровье до максимума</small></i>"><img src="/assets/img/potion_small_red64.png"></div>
-		<div class="item-action text-center"><a href="#">выпить</a></div>
+		<div class="item-action text-center" style="background-color: #222;"><a href="#">выпить</a></div>
 	</div>
 	<div class="item-entry">
 		<div class="border rounded border-primary" style="background-color: #66b;" data-toggle="tooltip" data-html="true" title="<b>Синее зелье</b><br><i><small>Восстанавливает энергию до максимума</small></i>"><img src="/assets/img/potion_big_blue64.png"></div>
-		<div class="item-action text-center"><a href="#">выпить</a></div>
+		<div class="item-action text-center" style="background-color: #222;"><a href="#">выпить</a></div>
 	</div>
 	<div class="item-entry">
 		<div class="border rounded border-dark" style="background-color: #ddd;" data-toggle="tooltip" data-html="true" title="<b>Синий свиток</b><br><i><small>Колдует что-то там. Пока не разобрались, что именно.</small></i>"><img src="/assets/img/scroll_blue64.png"></div>
-		<div class="item-action text-center"><a href="#">прочесть</a></div>
+		<div class="item-action text-center" style="background-color: #222;"><a href="#">прочесть</a></div>
 	</div>
 	<div class="item-entry">
 		<div class="border rounded border-secondary" style="background-color: #ccc;" data-toggle="tooltip" data-html="true" title="<b>Ракушки</b><br><i><small>Ценятся среди тех, у уого они - дефицит</small></i>"><img src="/assets/img/shells64.png"></div>

@@ -16,9 +16,11 @@ class Player extends CActiveRecord {
 
 	public function relations() {
 		return [
-			'user' => [self::BELONGS_TO, 'User', 'user_id'],
-			'log' => [self::HAS_MANY, 'PlayerLog', ['player_id' => 'id']],
-			'states' => [self::HAS_MANY, 'PlayerState', ['player_id' => 'id']],
+			'user'           => [self::BELONGS_TO, 'User', 'user_id'],
+			'log'            => [self::HAS_MANY, 'PlayerLog', ['player_id' => 'id']],
+			'states'         => [self::HAS_MANY, 'PlayerState', ['player_id' => 'id']],
+			'player_items'   => [self::HAS_MANY, 'PlayerItems', 'player_id', 'order' => 'item_id'],
+			'items'          => [self::HAS_MANY, 'Item', ['item_id' => 'id'], 'through' => 'player_items'],
 		];
 	}
 
@@ -90,6 +92,56 @@ class Player extends CActiveRecord {
 
 	public function getMushroomsText() {
 		return number_format($this->mushrooms, 0, ' ', ' ');
+	}
+
+	public function addItem($item_id, $amount) {
+		$item = Item::model()->findByPk($item_id);
+		if (!empty($item)) {
+			if ($item->bag_limit) {
+				$old_amount = 0;
+				$player_items = PlayerItems::model()->findByAttributes(['player_id' => $this->id, 'item_id' => $item_id]);
+				if (!empty($player_items)) {
+					$old_amount = $player_items->amount;
+					$player_items->delete();
+				}
+				$player_items = new PlayerItems;
+				$player_items->player_id = $this->id;
+				$player_items->item_id = $item_id;
+				$player_items->quality = Item::QUALITY_INFINITY;
+				$player_items->amount = $amount + $old_amount;
+				if ($player_items->amount > $item->bag_limit) {
+					$player_items->amount = $item->bag_limit;
+					Yii::app()->user->setFlash('error', Yii::t('error', 'нехватает места в рюкзаке при создании предмета'));
+					// @TODO - пишем в лог и в сайдбар, что не вошло
+				}
+				$player_items->save();
+			}
+			else {
+				// @TODO - проверка на свободность слотов
+				$player_items = new PlayerItems;
+				$player_items->player_id = $this->id;
+				$player_items->item_id = $item_id;
+				$player_items->quality = $item->default_quality;
+				$player_items->amount = 1;
+				$player_items->save();
+			}
+		}
+	}
+
+	public function removeItem($item_id, $amount) {
+		$item = Item::model()->findByPk($item_id);
+		if (!empty($item)) {
+			$player_item = PlayerItems::model()->findByAttributes(['player_id' => $this->id, 'item_id' => $item_id]);
+			if (!empty($player_item)) {
+				$player_item->amount -= $amount;
+				if (!$player_item->amount) {
+					$player_item->delete();
+				}
+				else {
+					$player_item->save();
+				}
+			}
+		}
 	}
 
 }

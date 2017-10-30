@@ -37,91 +37,33 @@
 </div>
 <h4>Рюкзак</h4>
 <div class="player-items">
-	<div class="item-entry">
-		<div class="border rounded border-success" style="background-color: #6b6;" data-toggle="tooltip" data-html="true" title="<b>Подарок</b><br><i><small>Судя по звуку, в коробочке что-то есть. И конечно очень ценное! Открыть! Срочно!</small></i>">
-			<img src="/assets/img/present_box_striped64.png">
+	<? foreach ($player_items as $player_item): ?>
+		<div class="item-entry">
+			<div class="border rounded <?= $player_item->item->class ?>" style="background-color: #6b6;" data-toggle="tooltip" data-html="true" title="<b><?= $player_item->item->name ?></b><br><i><small><?= $player_item->item->description ?></small></i>">
+				<img src="/assets/img/<?= $player_item->item->img ?>64.png">
+				<div class="counter">
+					<?= $player_item->amount ?>
+				</div>
+			</div>
+			<div class="item-action text-center" style="background-color: #222;">
+				<? if ($player_item->item->use_text): ?>
+					<? if ($player_item->item->use_link): ?>
+						<a href="<?= $player_item->item->use_link ?>"><?= $player_item->item->use_text ?></a>
+					<? else: ?>
+						<a href="/home/item/use/id/<?= $player_item->id ?>"><?= $player_item->item->use_text ?></a>
+					<? endif ?>
+				<? else: ?>
+					&nbsp;
+				<? endif ?>
+			</div>
 		</div>
-		<div class="item-action text-center" style="background-color: #222;"><a href="#">открыть</a></div>
-	</div>
+	<? endforeach ?>
 	<div class="item-entry">
-		<div class="border rounded border-primary" style="background-color: #66b;" data-toggle="tooltip" data-html="true" title="<b>Красное зелье</b><br><i><small>Восстанавливает здоровье до максимума</small></i>">
-			<img src="/assets/img/potion_small_red64.png">
-			<div class="counter">42</div>
+		<div class="border rounded border-dark" style="background-color: #bbb;">
+			<img src="/assets/img/empty64.png">
 		</div>
-		<div class="item-action text-center" style="background-color: #222;"><a href="#">выпить</a></div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-primary" style="background-color: #66b;" data-toggle="tooltip" data-html="true" title="<b>Синее зелье</b><br><i><small>Восстанавливает энергию до максимума</small></i>">
-			<img src="/assets/img/potion_big_blue64.png">
-			<div class="counter">42</div>
+		<div class="item-action text-center">
+			&nbsp;
 		</div>
-		<div class="item-action text-center" style="background-color: #222;"><a href="#">выпить</a></div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #ddd;" data-toggle="tooltip" data-html="true" title="<b>Синий свиток</b><br><i><small>Колдует что-то там. Пока не разобрались, что именно.</small></i>">
-			<img src="/assets/img/scroll_blue64.png">
-			<div class="counter">42</div>
-		</div>
-		<div class="item-action text-center" style="background-color: #222;"><a href="#">прочесть</a></div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-secondary" style="background-color: #ccc;" data-toggle="tooltip" data-html="true" title="<b>Ракушки</b><br><i><small>Ценятся среди тех, у уого они - дефицит</small></i>">
-			<img src="/assets/img/shells64.png">
-			<div class="counter">42</div>
-		</div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-secondary" style="background-color: #ccc;" data-toggle="tooltip" data-html="true" title="<b>Черепушки</b><br><i><small>Победителей не судят. Но между собой победители меряются. Чем? Правильно, Черепушками.</small></i>">
-			<img src="/assets/img/skulls64.png">
-			<div class="counter">42</div>
-		</div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-warning" style="background-color: #bb6;" data-toggle="tooltip" data-html="true" title="<b>Брильянты</b><br><i><small>Сверкушки-побрякушки. И ещё лучшие друзья девушек. Ага.</small></i>">
-			<img src="/assets/img/diamonds64.png">
-			<div class="counter">42</div>
-		</div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-warning" style="background-color: #bb6;" data-toggle="tooltip" data-html="true" title="<b>Мёд</b><br><i><small>Сладкий, как победа над пчёлами, у которых его с таким трудом отобрали.</small></i>">
-			<img src="/assets/img/honey64.png">
-			<div class="counter">42</div>
-		</div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
-	</div>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;"><img src="/assets/img/empty64.png"></div>
-		<div class="item-action text-center">&nbsp;</div>
 	</div>
 </div>

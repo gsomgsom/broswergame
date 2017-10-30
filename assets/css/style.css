@@ -42,9 +42,21 @@ a {
 	margin: 0px;
 	background-color: #bbb;
 	border: 1px solid;
+	position: relative;
 }
 .player-items [class^=border] > img {
 	width: 100%;
+}
+.counter {
+	position: absolute;
+	bottom: 2px;
+	right: 2px;
+	background-color: #fff;
+	padding: 2px 3px;
+	border-radius: 4px;
+	line-height: 1;
+	font-weight: bold;
+	font-size: 12px;
 }
 .av-item {
 	margin-bottom: 2px !important;

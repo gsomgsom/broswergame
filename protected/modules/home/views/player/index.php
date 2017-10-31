@@ -1,15 +1,15 @@
 <h3>Персонаж</h3>
 <div class="row">
 	<div class="col-md-6 nopadding">
-		<div style="width: 100%; padding-left: 2rem; color: #c00;"><img src="/assets/img/item16.png" title=""> Сила: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #444;"><img src="/assets/img/item16.png" title=""> Защита: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #00c;"><img src="/assets/img/item16.png" title=""> Ловкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #0c0;"><img src="/assets/img/item16.png" title=""> Стойкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #404;"><img src="/assets/img/item16.png" title=""> Интуиция: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; padding-left: 2rem; color: #c00;"><img src="/assets/img/str16.png" title="сила"> Сила: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; padding-left: 2rem; color: #444;"><img src="/assets/img/def16.png" title="защита"> Защита: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; padding-left: 2rem; color: #00c;"><img src="/assets/img/agi16.png" title="ловкость"> Ловкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; padding-left: 2rem; color: #0c0;"><img src="/assets/img/vit16.png" title="стойкость"> Стойкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; padding-left: 2rem; color: #404;"><img src="/assets/img/int16.png" title="интуиция"> Интуиция: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
 		<hr>
-		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/item16.png" title=""> Влияние: <span style="position: absolute; right: 4rem;"><b>1234</b></span></div>
+		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/top16.png" title="влияние"> Влияние: <span style="position: absolute; right: 4rem;"><b>1234</b></span></div>
 		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/yinyang16.png" title="карма"> Карма: <span style="position: absolute; right: 4rem;"><b style="color: #070;">+100</b></span></div>
-		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/item16.png" title=""> Опыт: <span style="position: absolute; right: 4rem;"><b>12 / 1000</b></span></div>
+		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/exp16.png" title="опыт"> Опыт: <span style="position: absolute; right: 4rem;"><b>12 / 1000</b></span></div>
 	</div>
 	<div class="col-md-6 nopadding">
 		<div class="row nomargin">

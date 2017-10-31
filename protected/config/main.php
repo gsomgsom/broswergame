@@ -36,7 +36,7 @@ return [
 	],
 	'defaultController' => 'site',
 	'modules' => [
-		'auth', 'cron', 'home', 'location', 'news', 'mail',
+		'auth', 'cron', 'home', 'location', 'news', 'mail', 'forum',
 	],
 	'components' => [
 		'assetManager' => [
@@ -65,6 +65,9 @@ return [
 			'urlFormat' => 'path',
 			'rules' => [
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+
+				'<controller(forum)>'=>'forum/<controller>',
+				'<controller(forum)>/<action>/<id>'=>'forum/<controller>/<action>',
 			],
 		],
 	],

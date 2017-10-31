@@ -15,17 +15,14 @@ class SearchController extends CController
 		$logType = LogType::model()->findByAttributes(['alias' => 'actions']);
 
 		// Поиск
-		$stateEntries = PlayerState::model()->findAllByAttributes(
-			[
+		$stateEntries = PlayerState::model()->findAllByAttributes([
 				'alias' => 'search',
-			],
-			[
+			], [
 				'condition' => 'cooldown < :date and state_text is not null',
 				'params' => [
 					'date' => date('Y-m-d H:i:s', time() + 1),
 				],
-			]
-		);
+		]);
 
 		foreach ($stateEntries as $stateEntry) {
 			$logEntry = new PlayerLog();

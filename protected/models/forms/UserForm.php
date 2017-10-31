@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * Модель "UserForm"
+ *
+ * @author Желнин Евгений <zhelneen@yandex.ru>
+ * @description Форма регистрации - пользователь
+ */
+
 class UserForm extends CFormModel {
 	public $email;
 	public $password;
 	public $password_again;
 	public $licenseAccepted;
 
+	/**
+	 * Правила валидации
+	 * @return array
+	 */
 	public function rules() {
 		return [
 			['email, password, password_again', 'required'],
@@ -18,6 +29,10 @@ class UserForm extends CFormModel {
 		];
 	}
 
+	/**
+	 * Названия полей таблицы
+	 * @return array
+	 */
 	public function attributeLabels() {
 		return [
 			'email'         => 'E-mail',
@@ -26,6 +41,9 @@ class UserForm extends CFormModel {
 		];
 	}
 
+	/**
+	 * Действие перед валидацией
+	 */
 	protected function beforeValidate() {
 		$this->email = trim($this->email);
 

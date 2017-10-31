@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Модель "LoginForm"
+ *
+ * @author Желнин Евгений <zhelneen@yandex.ru>
+ * @description Форма авторизации
+ */
+
 class LoginForm extends CFormModel {
 	public $email;
 	public $password;
@@ -7,6 +14,10 @@ class LoginForm extends CFormModel {
 
 	private $_identity;
 
+	/**
+	 * Правила валидации
+	 * @return array
+	 */
 	public function rules() {
 		return [
 			['email', 'required'],
@@ -17,6 +28,10 @@ class LoginForm extends CFormModel {
 		];
 	}
 
+	/**
+	 * Названия полей таблицы
+	 * @return array
+	 */
 	public function attributeLabels() {
 		return [
 			'email'=>'E-mail',
@@ -25,12 +40,19 @@ class LoginForm extends CFormModel {
 		];
 	}
 
+	/**
+	 * Аутентификация
+	 */
 	public function authenticate($attribute, $params) {
 		$this->_identity = new UserIdentity($this->email,$this->password);
 		if(!$this->_identity->authenticate())
 			$this->addError('password','Неверный логин или пароль.');
 	}
 
+	/**
+	 * Авторизация
+	 * @return bool успех
+	 */
 	public function login() {
 		if($this->_identity === null) {
 			$this->_identity = new UserIdentity($this->email,$this->password);

@@ -2,6 +2,8 @@
 
 class MailModule extends CWebModule
 {
+	public $defaultController = 'log';
+
 	public function init()
 	{
 		Yii::app()->params['pageTitle'] = 'Почта';

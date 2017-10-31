@@ -2,6 +2,8 @@
 
 class HomeModule extends CWebModule
 {
+	public $defaultController = 'player';
+
 	public function init()
 	{
 		Yii::app()->params['pageTitle'] = 'Персонаж';

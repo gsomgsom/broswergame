@@ -1,11 +1,26 @@
 <?php
 
+/**
+ * Модель "Player"
+ *
+ * @author Желнин Евгений <zhelneen@yandex.ru>
+ * @description Персонаж. Всё что связано с персонажем и действиями над ним.
+ */
+
 class Player extends CActiveRecord {
 
+	/**
+	 * Название таблицы в БД
+	 * @return string
+	 */
 	public function tableName() {
 		return '{{players}}';
 	}
 
+	/**
+	 * Правила валидации
+	 * @return array
+	 */
 	public function rules() {
 		return [
 			['nickname', 'required'],
@@ -14,6 +29,10 @@ class Player extends CActiveRecord {
 		];
 	}
 
+	/**
+	 * Связи и отношения с другими моделями
+	 * @return array
+	 */
 	public function relations() {
 		return [
 			'user'           => [self::BELONGS_TO, 'User', 'user_id'],
@@ -24,16 +43,29 @@ class Player extends CActiveRecord {
 		];
 	}
 
+	/**
+	 * Возвращает экземпляр себя
+	 * @return CActiveRecord объект модели
+	 */
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
 
+	/**
+	 * Описывает скоупы (scopes), сокращения предустановок выборки
+	 * @return array
+	 */
 	public function scopes() {
 		return [
 			'sorted' => ['order' => 't.id DESC'],
 		];
 	}
 
+	/**
+	 * Возвращает время до конца таймера статуса с именем $alias
+	 * @alias string Название статуса
+	 * @return timestamp Время до конца таймера статуса
+	 */
 	public function getStateCooldown($alias) {
 		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
 		if (!empty($stateEntry)) {
@@ -42,6 +74,39 @@ class Player extends CActiveRecord {
 		return time()-10; // время из прошлого
 	}
 
+	/**
+	 * Возвращает время до конца таймера глобального статуса (занятость персонажа охотой и другими делами)
+	 * @return timestamp Время до конца таймера глобального статуса
+	 */
+	public function getGlobalStateCooldown() {
+		$stateEntry = PlayerState::model()->findByAttributes([
+				'player_id'=> $this->id,
+				'is_global' => 1
+			], [
+				'condition' => 'cooldown >= :date and state_text is not null',
+				'params' => [
+					'date' => date('Y-m-d H:i:s', time()),
+				],
+		]);
+		if (!empty($stateEntry)) {
+			return strtotime($stateEntry->cooldown);
+		}
+		return time()-10; // время из прошлого
+	}
+
+	/**
+	 * Возвращает true, если персонаж занят на глобальной работе, и false если нет
+	 * @return bool На работе?
+	 */
+	public function isWorking() {
+		return $this->getGlobalStateCooldown() >= time();
+	}
+
+	/**
+	 * Возвращает значение статуса с именем $alias
+	 * @alias string Название статуса
+	 * @return string Состояние статуса, например "fast" для быстого поиска желудей
+	 */
 	public function getStateVal($alias) {
 		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
 		if (!empty($stateEntry)) {
@@ -50,12 +115,21 @@ class Player extends CActiveRecord {
 		return null;
 	}
 
+	/**
+	 * Устанавлиает параметры статуса с именем $alias
+	 * @alias string Название статуса
+	 * @params array Массив с параметрами статуса в формате 'key' => 'value'
+	 * @return bool Результат сохранения статуса. Должно быть true если всё прошло удачно
+	 */
 	public function setStateParams($alias, $params = []) {
 		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
 		if (empty($stateEntry)) {
 			$stateEntry = new PlayerState;
 			$stateEntry->player_id = $this->id;
 			$stateEntry->alias = $alias;
+		}
+		if (in_array('is_global', array_keys($params))) {
+			$stateEntry->is_global = (int)$params['is_global'];
 		}
 		if (in_array('state_int', array_keys($params))) {
 			$stateEntry->state_int = (int)$params['state_int'];
@@ -72,29 +146,66 @@ class Player extends CActiveRecord {
 			}
 		}
 		$result = $stateEntry->save();
+		return $result;
 	}
 
+	/**
+	 * Устанавлиает время $time до конца таймера статуса с именем $alias
+	 * @alias string Название статуса
+	 * @time timestamp Время до конца таймера статуса
+	 * @return bool Результат сохранения статуса. Должно быть true если всё прошло удачно
+	 */
 	public function setStateCooldown($alias, $time = null) {
-		$this->setStateParams($alias, ['cooldown' => $time]);
+		return $this->setStateParams($alias, [
+			'cooldown' => $time
+		]);
 	}
 
-	public function setStateVal($alias, $val = null) {
-		$this->setStateParams($alias, ['state_text' => $val]);
+	/**
+	 * Устанавлиает значение $val статуса с именем $alias
+	 * @alias string Название статуса
+	 * @val string Значение статуса
+	 * @global bool Глобальный
+	 * @return bool Результат сохранения статуса. Должно быть true если всё прошло удачно
+	 */
+	public function setStateVal($alias, $val = null, $global = false) {
+		return $this->setStateParams($alias, [
+			'state_text' => $val,
+			'is_global' => $global ? 1 : 0
+		]);
 	}
 
+	/**
+	 * Количество монет у персонажа, форматированное
+	 * @return string
+	 */
 	public function getCoinsText() {
 		return number_format($this->coins, 0, ' ', ' ');
 	}
 
+	/**
+	 * Количество желудей у персонажа, форматированное
+	 * @return string
+	 */
 	public function getNutsText() {
 		return number_format($this->nuts, 0, ' ', ' ');
 	}
 
+	/**
+	 * Количество грибов у персонажа, форматированное
+	 * @return string
+	 */
 	public function getMushroomsText() {
 		return number_format($this->mushrooms, 0, ' ', ' ');
 	}
 
-	public function addItem($item_id, $amount) {
+	/**
+	 * Добавляет $amount штук предмета с id = $item_id в рюкзак
+	 * @item_id integer ID предмета
+	 * @amount integer Количество штук
+	 * @return bool Результат добавления. Должно быть true если всё прошло удачно
+	 */
+	public function addItem($item_id, $amount = 1) {
 		$item = Item::model()->findByPk($item_id);
 		if (!empty($item)) {
 			if ($item->bag_limit) {
@@ -112,9 +223,18 @@ class Player extends CActiveRecord {
 				if ($player_items->amount > $item->bag_limit) {
 					$player_items->amount = $item->bag_limit;
 					Yii::app()->user->setFlash('error', Yii::t('error', 'нехватает места в рюкзаке при создании предмета'));
-					// @TODO - пишем в лог и в сайдбар, что не вошло
+
+					// Пишем в лог и в сайдбар, что не вошло
+					$logType = LogType::model()->findByAttributes(['alias' => 'debug']);
+					$logEntry = new PlayerLog();
+					$logEntry->dt = date('Y-m-d H:i:s', time());
+					if (!empty($logType))
+						$logEntry->type_id = $logType->id;
+					$logEntry->player_id = $this->id;
+					$logEntry->html = 'Ошибка добавления предмета id='.$item_id.', превышен лимит.';
+					$logEntry->save();
 				}
-				$player_items->save();
+				return $player_items->save();
 			}
 			else {
 				// @TODO - проверка на свободность слотов
@@ -123,24 +243,40 @@ class Player extends CActiveRecord {
 				$player_items->item_id = $item_id;
 				$player_items->quality = $item->default_quality;
 				$player_items->amount = 1;
-				$player_items->save();
+				return $player_items->save();
 			}
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 
-	public function removeItem($item_id, $amount) {
+	/**
+	 * Удааляет $amount штук предмета с id = $item_id из рюкзака
+	 * @item_id integer ID предмета
+	 * @amount integer Количество штук
+	 * @return bool Результат удаления. Должно быть true если всё прошло удачно
+	 */
+	public function removeItem($item_id, $amount = 1) {
 		$item = Item::model()->findByPk($item_id);
 		if (!empty($item)) {
 			$player_item = PlayerItems::model()->findByAttributes(['player_id' => $this->id, 'item_id' => $item_id]);
 			if (!empty($player_item)) {
 				$player_item->amount -= $amount;
 				if (!$player_item->amount) {
-					$player_item->delete();
+					return $player_item->delete();
 				}
 				else {
-					$player_item->save();
+					return $player_item->save();
 				}
 			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
 		}
 	}
 

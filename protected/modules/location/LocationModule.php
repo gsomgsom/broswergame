@@ -2,6 +2,8 @@
 
 class LocationModule extends CWebModule
 {
+	public $defaultController = 'search';
+
 	public function init()
 	{
 		Yii::app()->params['pageTitle'] = 'Локация';

@@ -1,5 +1,5 @@
 <?php
-define('TEST_SERVER', true);
+define('TEST_SERVER', false);
 
 /**
  * Параметры подключения к БД
@@ -18,6 +18,6 @@ function setDbOptions()
 	return $settings + [
 		'connectionString' => 'mysql:host=localhost;dbname=game',
 		'username' => 'root',
-		'password' => '',
+		'password' => '123',
 	];
 }

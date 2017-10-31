@@ -4,7 +4,9 @@ class DefaultController extends LoggedController
 {
 	public function actionIndex() {
 		Yii::app()->params['pageTitle'] = 'Персонаж';
-		$this->render('index');
+		$data = [];
+		$data['player_items'] = $this->user->player->player_items;
+		$this->render('index', $data);
 	}
 
 }

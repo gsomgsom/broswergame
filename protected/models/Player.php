@@ -25,7 +25,8 @@ class Player extends CActiveRecord {
 		return [
 			['nickname', 'required'],
 			['nickname', 'unique'],
-			['lvl, coins, nuts, mushrooms', 'safe'],
+			['gender', 'in', 'range' => [0,1], 'message' => 'Указан неизвестный пол персонажа'],
+			['gender, lvl, coins, nuts, mushrooms', 'safe'],
 		];
 	}
 

@@ -1,5 +1,5 @@
 <div class="row">
-	<div>
+	<div class="col-12">
 		<h4>Локации</h4>
 		<a href="/home" class="<? if (get_class($this->controller->module) == 'HomeModule'): ?>active<? endif ?>">Домой</a><br>
 		<a href="/location/search" class="<? if (get_class($this->controller->module) == 'LocationModule'): ?>active<? endif ?>">Поиск желудей</a><br>
@@ -11,11 +11,11 @@
 </div>
 <hr>
 <div class="row">
-	<div>
+	<div class="col-12">
 		<h4>Таймеры</h4>
 		<? $this->widget('PlayerTimers') ?>
 	</div>
-	<div>
+	<div class="col-12">
 		<h4>Журнал</h4>
 		<? $this->widget('LastLog') ?>
 	</div>

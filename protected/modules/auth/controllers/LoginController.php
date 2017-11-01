@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Контроллер "LoginController"
+ *
+ * @author Желнин Евгений <zhelneen@yandex.ru>
+ * @description Авторизация в игре
+ */
+
 class LoginController extends CController
 {
 

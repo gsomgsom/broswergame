@@ -12,6 +12,7 @@ class UserForm extends CFormModel {
 	public $password;
 	public $password_again;
 	public $licenseAccepted;
+	public $invite;
 
 	/**
 	 * Правила валидации
@@ -20,6 +21,8 @@ class UserForm extends CFormModel {
 	public function rules() {
 		return [
 			['email, password, password_again', 'required'],
+			['invite', 'required', 'on' => 'invite'],
+			['invite', 'validateInvite', 'on' => 'invite'],
 			['licenseAccepted', 'required', 'requiredValue' => 1, 'message' => 'Вы <b>не подтвердили</b> условия регистрации'],
 			['password', 'compare', 'compareAttribute' => 'password_again'],
 			['password, email', 'length', 'max' => 128],
@@ -36,9 +39,19 @@ class UserForm extends CFormModel {
 	public function attributeLabels() {
 		return [
 			'email'         => 'E-mail',
+			'invite'        => 'Код приглашения',
 			'password'      => 'Пароль',
 			'password_again'=> 'Пароль повторно',
 		];
+	}
+
+	/**
+	 * Валидатор кода приглашения
+	 */
+	public function validateInvite($attribute) {
+		if ($this->invite != 'pernatsk') {
+			$this->addError($attribute, 'Код приглашения указан неверно');
+		}
 	}
 
 	/**

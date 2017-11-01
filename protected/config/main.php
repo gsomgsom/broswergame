@@ -14,7 +14,6 @@ return [
 	'preload' => ['log'],
 	'import' => [
 		'application.models.*',
-		'application.models.forms.*',
 		'application.controllers.*',
 		'application.components.*',
 		'application.extensions.*',

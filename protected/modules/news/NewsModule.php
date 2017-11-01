@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Модуль "NewsModule"
+ *
+ * @author Желнин Евгений <zhelneen@yandex.ru>
+ * @description Новости
+ */
+
 class NewsModule extends CWebModule
 {
 	public function init()

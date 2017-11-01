@@ -13,6 +13,7 @@ return [
 	'language' => 'ru',
 	'preload' => ['log'],
 	'import' => [
+		'application.models.forms.*',
 		'application.models.*',
 		'application.controllers.*',
 		'application.components.*',

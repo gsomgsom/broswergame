@@ -17,7 +17,7 @@
 	</li>
 </ul>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-3">
 		<ul>
 			<li>
 				Бой
@@ -39,6 +39,10 @@
 					</li>
 				</ul>
 			</li>
+		</ul>
+	</div>
+	<div class="col-md-3">
+		<ul>
 			<li>
 				Природа
 				<ul>
@@ -75,6 +79,10 @@
 					</li>
 				</ul>
 			</li>
+		</ul>
+	</div>
+	<div class="col-md-3">
+		<ul>
 			<li>
 				Развитие
 				<ul>
@@ -203,6 +211,10 @@
 					</li>
 				</ul>
 			</li>
+		</ul>
+	</div>
+	<div class="col-md-3">
+		<ul>
 			<li>
 				Фракция
 				<ul>

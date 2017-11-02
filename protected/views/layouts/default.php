@@ -35,7 +35,7 @@
 					</a>
 					<h4><?= Yii::app()->name ?> <sub title="альфа-тест" style="color: red;">&alpha;</sub></h4>
 					<div class="small">Время на сервере:
-						<strong><span class="server-time">00:00:00</span></strong>
+						<strong><span class="server-time"><?= date('H:i:s') ?></span></strong>
 					</div>
 				</div>
 				<div class="col-9">

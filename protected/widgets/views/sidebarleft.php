@@ -16,6 +16,10 @@
 		<? $this->widget('PlayerTimers') ?>
 	</div>
 	<div class="col-12">
+		<h4>Эффекты</h4>
+		<? $this->widget('PlayerEffects') ?>
+	</div>
+	<div class="col-12">
 		<h4>Журнал</h4>
 		<? $this->widget('LastLog') ?>
 	</div>

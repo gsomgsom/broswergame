@@ -1,17 +1,23 @@
 <h3>Персонаж</h3>
-<div class="row">
-	<div class="col-md-6 nopadding">
-		<div style="width: 100%; padding-left: 2rem; color: #c00;"><img src="/assets/img/str16.png" title="сила"> Сила: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #444;"><img src="/assets/img/def16.png" title="защита"> Защита: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #00c;"><img src="/assets/img/agi16.png" title="ловкость"> Ловкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #0c0;"><img src="/assets/img/vit16.png" title="стойкость"> Стойкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<div style="width: 100%; padding-left: 2rem; color: #404;"><img src="/assets/img/int16.png" title="интуиция"> Интуиция: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
-		<hr>
-		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/top16.png" title="влияние"> Влияние: <span style="position: absolute; right: 4rem;"><b>1234</b></span></div>
-		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/yinyang16.png" title="карма"> Карма: <span style="position: absolute; right: 4rem;"><b style="color: #070;">+100</b></span></div>
-		<div style="width: 100%; padding-left: 2rem;"><img src="/assets/img/exp16.png" title="опыт"> Опыт: <span style="position: absolute; right: 4rem;"><b>12 / 1000</b></span></div>
-	</div>
-	<div class="col-md-6 nopadding">
+<ul class="nav nav-tabs" style="margin-bottom: 16px;">
+	<li class="nav-item">
+		<a class="nav-link active" href="/home/">Рюкзак</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="/home/skilltree/">Дерево умений</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="/home/achievments/">Достижения</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="/home/stats/">Статистика</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="/home/settings/">Настройки</a>
+	</li>
+</ul>
+<div class="row" style="margin-bottom: 16px;">
+	<div class="col-md-6">
 		<div class="row nomargin">
 			<div class="col-md-2 nopadding">
 				<div class="player-items">
@@ -34,10 +40,21 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-md-6">
+		<div style="width: 100%; color: #c00;"><img src="/assets/img/str16.png" title="сила"> Сила: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; color: #444;"><img src="/assets/img/def16.png" title="защита"> Защита: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; color: #00c;"><img src="/assets/img/agi16.png" title="ловкость"> Ловкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; color: #0c0;"><img src="/assets/img/vit16.png" title="стойкость"> Стойкость: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<div style="width: 100%; color: #404;"><img src="/assets/img/int16.png" title="интуиция"> Интуиция: <span style="position: absolute; right: 4rem;"><b>64</b></span></div>
+		<hr>
+		<div style="width: 100%;"><img src="/assets/img/top16.png" title="влияние"> Влияние: <span style="position: absolute; right: 4rem;"><b>1234</b></span></div>
+		<div style="width: 100%;"><img src="/assets/img/yinyang16.png" title="карма"> Карма: <span style="position: absolute; right: 4rem;"><b style="color: #070;">+100</b></span></div>
+		<div style="width: 100%;"><img src="/assets/img/exp16.png" title="опыт"> Опыт: <span style="position: absolute; right: 4rem;"><b>12 / 1000</b></span></div>
+	</div>
 </div>
 <h4>Рюкзак</h4>
 <div class="player-items">
-	<? foreach ($player_items as $player_item): ?>
+	<? foreach ($this->user->player->player_items as $player_item): ?>
 		<div class="item-entry">
 			<div class="border rounded <?= $player_item->item->class ?>" style="background-color: #6b6;" data-toggle="tooltip" data-html="true" title="<b><?= $player_item->item->name ?></b><br><i><small><?= $player_item->item->description ?></small></i>">
 				<img src="/assets/img/<?= $player_item->item->img ?>64.png">

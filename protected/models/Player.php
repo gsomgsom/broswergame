@@ -26,7 +26,8 @@ class Player extends CActiveRecord {
 			['nickname', 'required'],
 			['nickname', 'unique'],
 			['gender', 'in', 'range' => [0,1], 'message' => 'Указан неизвестный пол персонажа'],
-			['gender, lvl, coins, nuts, mushrooms', 'safe'],
+			['lvl, exp, hp, coins, nuts, mushrooms, str, def, dex, sta, int, might, carma', 'integerOnly' => true],
+			['nickname', 'safe'],
 		];
 	}
 
@@ -279,6 +280,15 @@ class Player extends CActiveRecord {
 		else {
 			return false;
 		}
+	}
+
+	/**
+	 * Опыта до следующего уровня
+	 * @return int
+	 */
+	public function expNext() {
+		// @TODO
+		return 1000;
 	}
 
 }

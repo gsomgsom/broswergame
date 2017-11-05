@@ -9,6 +9,11 @@ class HomeModule extends CWebModule
 		Yii::app()->params['pageTitle'] = 'Персонаж';
 		$this->layoutPath = Yii::getPathOfAlias('application.views.layouts');
 		$this->layout = 'default';
+		$this->setImport([
+			'application.models.*',
+			'home.models.*',
+			'home.controllers.*',
+		]);
 	}
 
 }

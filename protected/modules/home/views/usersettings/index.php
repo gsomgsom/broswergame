@@ -7,13 +7,23 @@
 		</div>
 		<div class="card border-light mb-3">
 			<div class="card-header">Смена электронной почты</div>
+			<? $form = $this->beginWidget('CActiveForm', [
+				'id' => 'account-email-form',
+				'action' => '/home/usersettings',
+				'enableAjaxValidation' => true,
+				'htmlOptions' => ['role' => 'form'],
+			]); ?>
 				<div class="card-body">
 					<p class="card-text">Ваш текущий адрес электронной почты, к которому привязан персонаж: <strong><?= $this->user->email ?></strong></p>
-					<p class="card-text"><input name="email" id="email" class="form-control" value="Введите новый E-Mail" type="email"></p>
+					<p class="card-text">
+						<?= $form->error($model, 'email'); ?>
+						<?= $form->textField($model, 'email', ['class' => 'form-control', 'placeholder' => 'E-mail']); ?>
+					</p>
 					<p class="card-text text-center">
 						<button class="btn btn-default btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Сохранить новый e-mail</button>
 					</p>
 				</div>
+			<? $this->endWidget(); ?>
 		</div>
 		<div class="card border-light mb-3">
 			<div class="card-header">Смена пароля</div>

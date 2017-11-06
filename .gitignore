@@ -1,5 +1,4 @@
 /protected/runtime/*
 /protected/config/custom_db.php
-/protected/config/console.php
 /assets/assets/*
 /assets/upload/*

@@ -6,14 +6,16 @@ class ForumModule extends CWebModule
 
 	public function init()
 	{
-		// this method is called when the module is being created
-		// you may place code here to customize the module or the application;
-		// import the module-level models and components
-		$this->setImport([
-			'application.models.*',
-			'forum.components.*',
-			'forum.controllers.*',
-		]);
+            $this->layoutPath = Yii::getPathOfAlias('application.views.layouts');
+            $this->layout = 'default';
+            // this method is called when the module is being created
+            // you may place code here to customize the module or the application;
+            // import the module-level models and components
+            $this->setImport([
+                'application.models.*',
+                'forum.models.*',
+                'forum.components.*',
+                'forum.controllers.*',
+            ]);
 	}
-
 }

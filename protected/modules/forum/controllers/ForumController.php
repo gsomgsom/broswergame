@@ -2,7 +2,7 @@
 
 class ForumController extends LoggedController
 {
-	public $layout = 'main';
+	//public $layout = 'main';
 
 	public function actionIndex()
 	{

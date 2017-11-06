@@ -23,7 +23,7 @@ class PlayerItems extends CActiveRecord {
 	 */
 	public function rules() {
 		return [
-			['player_id, item_id, amount, quality, lvl, variant', 'safe'],
+			['player_id, item_id, amount, quality, lvl, variant, equipped', 'safe'],
 		];
 	}
 

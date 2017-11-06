@@ -47,7 +47,21 @@ class Item extends CActiveRecord {
 	 */
 	public function rules() {
 		return [
-			['name, img, description, notice, use_text, use_link, bag, class, required_lvl, use_stack, stack, bag_limit, nosell, default_quality', 'safe'],
+			['name', 'safe'],				// название предмета
+			['php_class', 'safe'],			// php - класс, в котором описано поведение предмета (use, unuse, sell, buy, loot...)
+			['img', 'safe'],				// картинка (возможно при компиляции спрайтов будет означать класс картинки)
+			['description', 'safe'],		// текстовое описание
+			['notice', 'safe'],				// примечание к описанию (выводится курсивом), обычно пусто
+			['use_text', 'safe'],			// текст на кнопке "открыть", "выпить", и т.д.
+			['use_link', 'safe'],			// ссылка на использование, как правило ссылка на локацию или null
+			['bag', 'safe'],				// отдел сумки, где лежит
+			['class', 'safe'],				// css - класс
+			['required_lvl', 'safe'],		// требуемый уровень для пользования предметом
+			['use_stack', 'safe'],			// за раз используется use_stack предметов
+			['stack', 'safe'],				// предметов в стопке (если предмет не собирается в стопке, то 1)
+			['bag_limit', 'safe'],			// лимит предметов в сумке у игрока
+			['nosell', 'safe'],				// предмет не подлежит продаже
+			['default_quality', 'safe'],	// качество предмета по-умолчанию (при первом получении игроком)
 		];
 	}
 
@@ -150,6 +164,24 @@ class Item extends CActiveRecord {
 		else {
 			return self::QUALITY_INFINITY_TEXT;
 		}
+	}
+
+	/**
+	 * Использование предмета
+	 * В наследующихся классах требуется описать действие по 'use'
+	 * @return array
+	 */
+	public function use($player_item) {
+		if ($player_item->amount >= $player_item->item->use_stack) {
+			$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);
+			Yii::app()->user->setFlash('error', 'Ничего не произошло.');
+			return true;
+		}
+		else {
+			Yii::app()->user->setFlash('error', 'Маловато будет. Требуется '.$player_item->item->use_stack.' шт.');
+			return false;
+		}
+		return true;
 	}
 
 }

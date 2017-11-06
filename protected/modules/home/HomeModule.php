@@ -10,6 +10,7 @@ class HomeModule extends CWebModule
 		$this->layoutPath = Yii::getPathOfAlias('application.views.layouts');
 		$this->layout = 'default';
 		$this->setImport([
+			'application.models.items.*',
 			'application.models.*',
 			'home.models.*',
 			'home.controllers.*',

@@ -24,10 +24,10 @@ class ItemController extends LoggedController
 					if (!is_null($player_item->item->php_class)) {
 						$namedItem = new $player_item->item->php_class;
 						$namedItem->attributes = $player_item->item->attributes;
-						$namedItem->use($player_item);
+						$namedItem->use($player_item, $amount);
 					}
 					else {
-						$player_item->item->use($player_item);
+						$player_item->item->use($player_item, $amount);
 					}
 					
 				}

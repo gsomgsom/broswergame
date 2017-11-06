@@ -13,8 +13,8 @@ class ItemPotionRed extends Item {
 	 * Использование предмета
 	 * @return array
 	 */
-	public function use($player_item) {
-		if (parent::use($player_item)) {
+	public function use($player_item, $amount) {
+		if (parent::use($player_item, $amount)) {
 			$player_item->player->hp = 100; // @TODO - должно восстанавливать 100% hp
 			$player_item->player->save();
 

@@ -13,8 +13,8 @@ class ItemBoxTest extends Item {
 	 * Использование предмета
 	 * @return array
 	 */
-	public function use($player_item) {
-		if (parent::use($player_item)) {
+	public function use($player_item, $amount) {
+		if (parent::use($player_item, $amount)) {
 			Yii::app()->user->setFlash('error', null);
 
 			$drop = [];
@@ -48,7 +48,6 @@ class ItemBoxTest extends Item {
 				}
 			}
 			$drop['items'] = $items;
-			$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);
 
 			Yii::app()->user->setFlash('success', Yii::t('success', 'Вы открыли подарок тестера!'));
 

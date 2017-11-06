@@ -169,9 +169,11 @@ class Item extends CActiveRecord {
 	/**
 	 * Использование предмета
 	 * В наследующихся классах требуется описать действие по 'use'
+	 * @player_item PlayerItems Экземпляр предмета
+	 * @amount integer Количество
 	 * @return array
 	 */
-	public function use($player_item) {
+	public function use($player_item, $amount) {
 		if ($player_item->amount >= $player_item->item->use_stack) {
 			$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);
 			Yii::app()->user->setFlash('error', 'Ничего не произошло.');

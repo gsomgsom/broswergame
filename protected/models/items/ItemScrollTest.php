@@ -13,8 +13,8 @@ class ItemScrollTest extends Item {
 	 * Использование предмета
 	 * @return array
 	 */
-	public function use($player_item) {
-		if (parent::use($player_item)) {
+	public function use($player_item, $amount) {
+		if (parent::use($player_item, $amount)) {
 			Yii::app()->user->setFlash('error', null);
 
 			$drop_html = [];

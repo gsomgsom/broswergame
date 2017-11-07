@@ -6,6 +6,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Cuprum&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
 		<link rel="icon" type="image/png" href="/assets/img/favicon.png">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+		<link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
 		<link rel="stylesheet" href="/assets/css/style.css">
 		<title><? $this->widget('Title') ?></title>
 		<script>

@@ -13,8 +13,8 @@ class ItemBoxTest extends Item {
 	 * Использование предмета
 	 * @return array
 	 */
-	public function use($player_item, $amount) {
-		if (parent::use($player_item, $amount)) {
+	public function useItem($player_item, $amount) {
+		if (parent::useItem($player_item, $amount)) {
 			Yii::app()->user->setFlash('error', null);
 
 			$drop = [];

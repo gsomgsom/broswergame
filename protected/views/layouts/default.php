@@ -59,18 +59,24 @@
 						<div class="col-5 text-center">
 							<div class="progress">
 								<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%; height: 22px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-									<img src="/assets/img/hp16.png" title="здоровье"> <strong>100%</strong>
+									&nbsp;
 								</div>
+							</div>
+							<div class="progress-text">
+								<img src="/assets/img/hp16.png" title="здоровье"> <strong>100%</strong>
 							</div>
 						</div>
 						<div class="col-2 text-center" style="margin-top: -3px;">
-							<span class="badge badge-dark" style="width: 100%;"><img src="/assets/img/lvl16.png" title="уровень"> <strong><?= Formulas::lvl($this->user->player->exp) ?></strong></span>
+							<span class="badge badge-dark" style="width: 100%;"><img src="/assets/img/lvl16.png" title="уровень"> <strong><?= $this->user->player->lvl ?></strong></span>
 						</div>
 						<div class="col-5 text-center">
 							<div class="progress">
-								<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 100%; height: 22px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-									<img src="/assets/img/energy16.png" title="энергия"> <strong>100%</strong>
+								<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: <?= ceil(($this->user->player->expAtLevel() / $this->user->player->expToLevelMax()) * 100) ?>%; height: 22px;" aria-valuenow="<?= $this->user->player->expAtLevel() ?>" aria-valuemin="0" aria-valuemax="<?= $this->user->player->expToLevelMax() ?>">
+									&nbsp;
 								</div>
+							</div>
+							<div class="progress-text">
+								<img src="/assets/img/exp16.png" title="опыт"> <strong><?= $this->user->player->expAtLevel() ?> / <?= $this->user->player->expToLevelMax() ?></strong>
 							</div>
 						</div>
 					</div>

@@ -1,10 +1,17 @@
 <?php
+/**
+ * Формулы игры
+ */
 class Formulas {
+	const EXP_RATE                = 10;       // Множитель таблиц опыта
 
 	/**
-	 * расчет уровня по экспе - exp(экспа перса)
+	 * Расчет уровня персонажа по опыту
+	 * @exp integer Опыт
+	 * @return integer Уровень персонажа
 	 */
-	public static function lvl($exp) {
+	public static function getPlayerLevelByExp($exp) {
+		$exp = $exp / Formulas::EXP_RATE;
 		$c = $exp + 20;
 		$a = 5;
 		$b = 5;
@@ -25,20 +32,26 @@ class Formulas {
 	}
 
 	/**
-	 * расчет экспы по уровню
+	 * Расчет опыта по уровню персонажа
+	 * @lvl integer Уровень персонажа
+	 * @return integer Опыт
 	 */
-	public static function lvl_to_exp($lvl) {
-		$y = $lvl*10+5;
-		$x = (pow($y,2) - 425) / 20;
+	public static function getPlayerExpByLevel($lvl) {
+		$y = $lvl * Formulas::EXP_RATE + 5;
+		$x = (pow($y,2) - 425) / 2;
+		if ($x < 0)
+			$x = 0;
 		return $x;
 	}
 
 	/**
-	 * расчет экспы для следующего уровня - exp(экспа перса)
+	 * Расчет опыта для следующего уровня
+	 * @exp integer Опыт
+	 * @return integer Опыт
 	 */
-	public static function n_lvl_exp($exp) {
-		$lvl_now = Formulas::lvl($exp)+1;
-		$exp=5*($lvl_now*$lvl_now)+5*$lvl_now-20;
+	public static function getNextLevelExp($exp) {
+		$lvl_now = Formulas::getPlayerLevelByExp($exp)+1;
+		$exp=(5*($lvl_now*$lvl_now)+5*$lvl_now-20) * Formulas::EXP_RATE;
 		return $exp;
 	}
 

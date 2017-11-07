@@ -64,6 +64,69 @@ class Player extends CActiveRecord {
 	}
 
 	/**
+	 * После загрузки записи из БД
+	 */
+	protected function afterFind()
+	{
+		// Пересчитаем уровень персонажа
+		$this->lvl = Formulas::getPlayerLevelByExp($this->exp);
+
+		parent::afterFind();
+	}
+
+	/**
+	 * Действие перед сохранением в БД
+	 * @return bool
+	 */
+	public function beforeSave() {
+		if (parent::beforeSave()) {
+
+			// Обновим уровень персонажа
+			$this->lvl = Formulas::getPlayerLevelByExp($this->exp);
+
+			return true;
+		}
+		else
+			return false;
+	}
+
+	/**
+	 * Опыта на следующий уровень
+	 * @return integer
+	 */
+	public function expNext()
+	{
+		return Formulas::getNextLevelExp($this->exp);
+	}
+
+	/**
+	 * Опыта на текущем уровне до следующего
+	 * @return integer
+	 */
+	public function expToLevelMax()
+	{
+		return $this->expNext() - Formulas::getPlayerExpByLevel($this->lvl);
+	}
+
+	/**
+	 * Опыта до следующего уровня
+	 * @return integer
+	 */
+	public function expToLevel()
+	{
+		return $this->expNext() - $this->exp;
+	}
+
+	/**
+	 * Опыта на этом уровне
+	 * @return integer
+	 */
+	public function expAtLevel()
+	{
+		return $this->expToLevelMax() - $this->expToLevel();
+	}
+
+	/**
 	 * Возвращает время до конца таймера статуса с именем $alias
 	 * @alias string Название статуса
 	 * @return timestamp Время до конца таймера статуса

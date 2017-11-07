@@ -8,6 +8,9 @@
  */
 
 class Player extends CActiveRecord {
+	// Пол персонажа
+	const GENDER_FEMALE            = 0;
+	const GENDER_MALE              = 1;
 
 	/**
 	 * Название таблицы в БД
@@ -60,6 +63,7 @@ class Player extends CActiveRecord {
 	public function scopes() {
 		return [
 			'sorted' => ['order' => 't.id DESC'],
+			'sortedByMight' => ['order' => 't.might DESC, t.id DESC'],
 		];
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-class HomeModule extends CWebModule
+class PlayerModule extends CWebModule
 {
 	public $defaultController = 'player';
 
@@ -12,8 +12,8 @@ class HomeModule extends CWebModule
 		$this->setImport([
 			'application.models.items.*',
 			'application.models.*',
-			'home.models.*',
-			'home.controllers.*',
+			'player.models.*',
+			'player.controllers.*',
 		]);
 	}
 

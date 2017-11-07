@@ -53,7 +53,7 @@ class SiteController extends CController {
 			}
 		}
 		else
-			$this->redirect('/home');
+			$this->redirect('/player');
 	}
 
 }

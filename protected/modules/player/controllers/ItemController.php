@@ -36,14 +36,14 @@ class ItemController extends LoggedController
 		else {
 			Yii::app()->user->setFlash('error', Yii::t('error', 'Такого предмета нет!'));
 		}
-		$this->redirect('/home');
+		$this->redirect('/player');
 	}
 
 	public function actionUnuse() {
 		$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 		// @TODO - находим экземпляр предмета по ID, инитим и снимаем с персонажа (если персонаж наш)
 		Yii::app()->user->setFlash('error', 'Не реализовано ;-(');
-		$this->redirect('/home');
+		$this->redirect('/player');
 	}
 
 }

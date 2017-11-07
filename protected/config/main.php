@@ -37,7 +37,7 @@ return [
 	],
 	'defaultController' => 'site',
 	'modules' => [
-		'auth', 'cron', 'home', 'location', 'news', 'mail', 'forum',
+		'auth', 'cron', 'player', 'location', 'news', 'mail', 'forum', 'chat', 'world',
 	],
 	'components' => [
 		'assetManager' => [

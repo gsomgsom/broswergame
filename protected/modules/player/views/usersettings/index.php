@@ -9,7 +9,7 @@
 			<div class="card-header">Смена электронной почты</div>
 			<? $form = $this->beginWidget('CActiveForm', [
 				'id' => 'account-email-form',
-				'action' => '/home/usersettings',
+				'action' => '/player/usersettings',
 				'enableAjaxValidation' => true,
 				'htmlOptions' => ['role' => 'form'],
 			]); ?>

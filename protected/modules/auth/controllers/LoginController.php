@@ -15,7 +15,7 @@ class LoginController extends CController
 	 */
 	public function actionIndex() {
 		if (!Yii::app()->user->isGuest)
-			$this->redirect('/home');
+			$this->redirect('/player');
 
 		$this->layout = 'guest';
 
@@ -30,7 +30,7 @@ class LoginController extends CController
 		if (isset($_POST['LoginForm'])) {
 			$model->attributes=$_POST['LoginForm'];
 			if ($model->validate() && $model->login())
-				$this->redirect('/home');
+				$this->redirect('/player');
 		}
 
 		$this->render('index', ['model' => $model]);

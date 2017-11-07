@@ -1,19 +1,19 @@
 <h3>Персонаж</h3>
 <ul class="nav nav-tabs" style="margin-bottom: 16px;">
 	<li class="nav-item">
-		<a class="nav-link active" href="/home/">Рюкзак</a>
+		<a class="nav-link active" href="/player/">Рюкзак</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="/home/skilltree/">Дерево умений</a>
+		<a class="nav-link" href="/player/skilltree/">Дерево умений</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="/home/achievments/">Достижения</a>
+		<a class="nav-link" href="/player/achievments/">Достижения</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="/home/stats/">Статистика</a>
+		<a class="nav-link" href="/player/stats/">Статистика</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="/home/settings/">Настройки</a>
+		<a class="nav-link" href="/player/settings/">Настройки</a>
 	</li>
 </ul>
 <div class="row" style="margin-bottom: 16px;">
@@ -28,7 +28,11 @@
 				</div>
 			</div>
 			<div class="col-md-8 nopadding">
-				<img src="/assets/img/av-boy01.png" class="text-center">
+				<? if ($this->user->player->gender == Player::GENDER_MALE): ?>
+					<img src="/assets/img/av-boy01.png" class="text-center">
+				<? else: ?>
+					<img src="/assets/img/av-girl01.png" class="text-center">
+				<? endif ?>
 			</div>
 			<div class="col-md-2 nopadding">
 				<div class="player-items">
@@ -47,7 +51,7 @@
 		<div style="width: 100%; color: #0c0;"><img src="/assets/img/vit16.png" title="стойкость"> Стойкость: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->sta ?> </b></span></div>
 		<div style="width: 100%; color: #404;"><img src="/assets/img/int16.png" title="интуиция"> Интуиция: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->int ?> </b></span></div>
 		<hr>
-		<div style="width: 100%;"><img src="/assets/img/top16.png" title="влияние"> Влияние: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->might ?> </b></span></div>
+		<div style="width: 100%;"><img src="/assets/img/top16.png" title="влияние"> <a href="/player/top/might">Влияние</a>: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->might ?> </b></span></div>
 		<div style="width: 100%;"><img src="/assets/img/yinyang16.png" title="карма"> Карма: <span style="position: absolute; right: 4rem;"><b<? if ($this->user->player->carma >= 0): ?> style="color: #070;">+<? else: ?> style="color: #700;">-<? endif ?> <?= abs($this->user->player->carma) ?></b></span></div>
 		<div style="width: 100%;"><img src="/assets/img/exp16.png" title="опыт"> Опыт: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->exp ?> / <?= $this->user->player->expNext() ?></b></span></div>
 	</div>
@@ -67,7 +71,7 @@
 					<? if ($player_item->item->use_link): ?>
 						<a href="<?= $player_item->item->use_link ?>"><?= $player_item->item->use_text ?></a>
 					<? else: ?>
-						<a href="/home/item/use/id/<?= $player_item->id ?>"><?= $player_item->item->use_text ?></a>
+						<a href="/player/item/use/id/<?= $player_item->id ?>"><?= $player_item->item->use_text ?></a>
 					<? endif ?>
 				<? else: ?>
 					&nbsp;

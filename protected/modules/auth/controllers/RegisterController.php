@@ -15,7 +15,7 @@ class RegisterController extends CController
 	 */
 	public function actionIndex() {
 		if (!Yii::app()->user->isGuest)
-			$this->redirect('/home');
+			$this->redirect('/player');
 
 		$this->layout = 'guest';
 		Yii::app()->params['pageTitle'] = 'Регистрация';

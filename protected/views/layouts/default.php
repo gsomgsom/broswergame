@@ -31,7 +31,7 @@
 		<div class="main container">
 			<div class="row">
 				<div class="col-3 text-center">
-					<a href="/home">
+					<a href="/player">
 						<img src="/assets/img/logo.png" width="150">
 					</a>
 					<h4><?= Yii::app()->name ?> <sub title="альфа-тест" style="color: red;">&alpha;</sub></h4>
@@ -42,10 +42,14 @@
 				<div class="col-9">
 					<div class="row">
 						<div class="col-5 text-center">
-							<p><small><strong><?= $this->user->player->nickname ?></strong></small></p>
+							<p><small><strong><a href="/player/look/player/id/<?= $this->user->player->id ?>"><?= $this->user->player->nickname ?></a></strong></small></p>
 						</div>
 						<div class="col-2 text-center">
+						<? if ($this->user->player->gender == Player::GENDER_MALE): ?>
 							<img src="/assets/img/avsm-boy01.png" class="border rounded-circle" style="margin-top: -6px; background-color: #ccc;">
+						<? else: ?>
+							<img src="/assets/img/avsm-girl01.png" class="border rounded-circle" style="margin-top: -6px; background-color: #ccc;">
+						<? endif ?>
 						</div>
 						<div class="col-5 text-center">
 							<p>

@@ -35,6 +35,13 @@ a {
 .errorMessage {
 	color: red;
 }
+.progress-text {
+	color: #fff;
+	width: 100%;
+	position: absolute;
+	top: 2px;
+	text-shadow: #000 1px 1px;
+}
 .player-items [class^=border] {
 	display: inline-block;
 	width: 66px;

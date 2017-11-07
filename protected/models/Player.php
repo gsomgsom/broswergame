@@ -282,13 +282,4 @@ class Player extends CActiveRecord {
 		}
 	}
 
-	/**
-	 * Опыта до следующего уровня
-	 * @return int
-	 */
-	public function expNext() {
-		// @TODO
-		return 1000;
-	}
-
 }

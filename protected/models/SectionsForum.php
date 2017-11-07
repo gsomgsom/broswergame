@@ -4,7 +4,7 @@
  * Модель "SectionsForum"
  *
  * @author Кривилёв Иван <XEGO@yande.ru>
- * @description Новости. Запись новости в БД.
+ * @description Категории форума
  */
 
 class SectionsForum extends CActiveRecord {
@@ -14,7 +14,7 @@ class SectionsForum extends CActiveRecord {
 	 * @return string
 	 */
 	public function tableName() {
-		return '{{news}}';
+		return '{{sectionsforum}}';
 	}
 
 	/**
@@ -23,7 +23,15 @@ class SectionsForum extends CActiveRecord {
 	 */
 	public function rules() {
 		return [
-			['publicated, alias, dt, title, content', 'safe'],
+			['title', 'required'],
+			['alias, img, description', 'safe'],
+		];
+	}
+
+	public function attributeLabels()
+	{
+		return [
+			'title' => 'Заголовок',
 		];
 	}
 
@@ -41,8 +49,8 @@ class SectionsForum extends CActiveRecord {
 	 */
 	public function scopes() {
 		return [
-			'sorted' => ['order' => 't.dt DESC, t.id DESC'],
-			'publicated' => ['condition' => 't.publicated = 1'],
+			'sorted'   => ['order' => 't.order ASC, t.id ASC'],
+			'visibled' => ['condition' => 't.visible = 1'],
 		];
 	}
 

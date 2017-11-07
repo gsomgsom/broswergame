@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Модель "News"
+ * Модель "SectionsForum"
  *
- * @author Желнин Евгений <zhelneen@yandex.ru>
+ * @author Кривилёв Иван <XEGO@yande.ru>
  * @description Новости. Запись новости в БД.
  */
 

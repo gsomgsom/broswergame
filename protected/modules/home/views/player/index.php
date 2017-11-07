@@ -49,7 +49,7 @@
 		<hr>
 		<div style="width: 100%;"><img src="/assets/img/top16.png" title="влияние"> Влияние: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->might ?> </b></span></div>
 		<div style="width: 100%;"><img src="/assets/img/yinyang16.png" title="карма"> Карма: <span style="position: absolute; right: 4rem;"><b<? if ($this->user->player->carma >= 0): ?> style="color: #070;">+<? else: ?> style="color: #700;">-<? endif ?> <?= abs($this->user->player->carma) ?></b></span></div>
-		<div style="width: 100%;"><img src="/assets/img/exp16.png" title="опыт"> Опыт: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->exp ?> / <?= $this->user->player->expNext() ?></b></span></div>
+		<div style="width: 100%;"><img src="/assets/img/exp16.png" title="опыт"> Опыт: <span style="position: absolute; right: 4rem;"><b><?= $this->user->player->exp ?> / <?= Formulas::n_lvl_exp($this->user->player->exp) ?></b></span></div>
 	</div>
 </div>
 <h4>Рюкзак</h4>

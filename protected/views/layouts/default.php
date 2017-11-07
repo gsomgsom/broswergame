@@ -65,7 +65,7 @@
 							</div>
 						</div>
 						<div class="col-2 text-center" style="margin-top: -3px;">
-							<span class="badge badge-dark" style="width: 100%;"><img src="/assets/img/lvl16.png" title="уровень"> <strong><?= $this->user->player->lvl ?></strong></span>
+							<span class="badge badge-dark" style="width: 100%;"><img src="/assets/img/lvl16.png" title="уровень"> <strong><?= Formulas::lvl($this->user->player->exp) ?></strong></span>
 						</div>
 						<div class="col-5 text-center">
 							<div class="progress">

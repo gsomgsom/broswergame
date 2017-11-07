@@ -99,4 +99,12 @@ class Funcs {
 		return FALSE;
 	}
 
+	/*
+    * Путь к корню
+    */
+    static function base()
+    {
+        return Yii::app()->getBaseUrl(true);
+    }
+
 }

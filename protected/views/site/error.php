@@ -1,5 +1,6 @@
-                    <div class="error-icon ibox">
-                        <div class="error-code abox">
-                            <?= $code ?>
-                        </div>
-                    </div>
+<h1><?= $code ?></h1>
+<p class="txt">
+	Что-то пошло не так.<br>
+	Не вы не расстраивайтесь, а лучше вернитесь<br>
+	<a href="/">в начало</a>
+</p>

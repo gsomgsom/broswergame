@@ -11,6 +11,9 @@ footer {
 a {
 	color: #795;
 }
+.sidebar-left {
+	background: #efa;
+}
 .navbar {
 	padding-top: 0px;
 	padding-bottom: 0px;

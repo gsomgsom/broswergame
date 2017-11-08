@@ -11,6 +11,14 @@ class LoggedController extends CController {
 		$this->user = User::model()->findByPk(Yii::app()->user->id);
 		$this->user->save(); // чтобы видеть, кто онлайн
 
+		// Применяем ауры
+		foreach ($this->user->player->states as $player_state) {
+			if ($player_state->state_text == 'aura') {
+				$aura_class = new $player_state->alias;
+				$aura_class->auraEffect();
+			}
+		}
+
 		return parent::beforeAction($action);
 	}
 

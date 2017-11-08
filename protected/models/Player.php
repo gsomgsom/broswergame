@@ -287,7 +287,7 @@ class Player extends CActiveRecord {
 				$player_items = new PlayerItems;
 				$player_items->player_id = $this->id;
 				$player_items->item_id = $item_id;
-				$player_items->quality = Item::QUALITY_INFINITY;
+				$player_items->quality = Item::QUALITY_POOR;
 				$player_items->amount = $amount + $old_amount;
 				if ($player_items->amount > $item->bag_limit) {
 					$player_items->amount = $item->bag_limit;
@@ -322,7 +322,7 @@ class Player extends CActiveRecord {
 	}
 
 	/**
-	 * Удааляет $amount штук предмета с id = $item_id из рюкзака
+	 * Удаляет $amount штук предмета с id = $item_id из рюкзака
 	 * @item_id integer ID предмета
 	 * @amount integer Количество штук
 	 * @return bool Результат удаления. Должно быть true если всё прошло удачно
@@ -347,6 +347,34 @@ class Player extends CActiveRecord {
 		else {
 			return false;
 		}
+	}
+
+	/**
+	 * Проверяет, может ли игрок использовать Item предмет player.
+	 * @item Item предмет
+	 * @return bool true, если может
+	 */
+	function canUseItem($item = null) {
+		if (empty($item)) {
+			return false;
+		}
+		return (
+			($item->required_lvl <= $this->lvl) // проверка на требуемый уровень
+		);
+		
+	}
+
+	/**
+	 * Проверяет, может ли игрок использовать PlayerItem предмет player_item.
+	 * @player_item PlayerItem экземпляр предмета
+	 * @return bool true, если может
+	 */
+	function canUsePlayerItem($player_item = null) {
+		if (empty($player_item)) {
+			return false;
+		}
+		return $this->canUseItem($player_item->item);
+		
 	}
 
 }

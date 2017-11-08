@@ -34,6 +34,9 @@ return [
 		'senderUser' => 'noreply@zhelnin.perm.ru',
 		'senderPass' => 'udz76zYZ',
 		'constructionMode' => !TEST_SERVER, // вместо страницы авторизации выводится заглушка с формой записи на тест
+
+		'location_search_fast' => 10 * 60,
+		'location_search_long' => 60 * 60,
 	],
 	'defaultController' => 'site',
 	'modules' => [

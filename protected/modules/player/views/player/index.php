@@ -21,10 +21,49 @@
 		<div class="row nomargin">
 			<div class="col-md-2 nopadding">
 				<div class="player-items">
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Шляпа</b><br><i><small>Слот для головных уборов</small></i>"><img src="/assets/img/slot_helm64.png"></span>
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Куртка</b><br><i><small>Слот для куртки</small></i>"><img src="/assets/img/slot_shirt64.png"></span>
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Штаны</b><br><i><small>Слот для штанов</small></i>"><img src="/assets/img/slot_pants64.png"></span>
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Правая рука</b><br><i><small>Слот для оружия</small></i>"><img src="/assets/img/slot_weapon64.png"></span>
+					<? $helm_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'helm')): ?>
+							<? $helm_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$helm_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Шляпа</b><br><i><small>Слот для головных уборов</small></i>"><img src="/assets/img/slot_helm64.png"></span>
+					<? endif ?>
+
+					<? $shirt_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'shirt')): ?>
+							<? $shirt_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$shirt_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Куртка</b><br><i><small>Слот для куртки</small></i>"><img src="/assets/img/slot_shirt64.png"></span>
+					<? endif ?>
+
+					<? $pants_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'pants')): ?>
+							<? $pants_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$pants_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Штаны</b><br><i><small>Слот для штанов</small></i>"><img src="/assets/img/slot_pants64.png"></span>
+					<? endif ?>
+
+					<? $weapon_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'weapon')): ?>
+							<? $weapon_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$weapon_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Правая рука</b><br><i><small>Слот для оружия</small></i>"><img src="/assets/img/slot_weapon64.png"></span>
+					<? endif ?>
 				</div>
 			</div>
 			<div class="col-md-8 nopadding">
@@ -36,10 +75,49 @@
 			</div>
 			<div class="col-md-2 nopadding">
 				<div class="player-items">
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Ожерелье</b><br><i><small>Слот для ожерелья</small></i>"><img src="/assets/img/slot_necklace64.png"></span>
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Накидка</b><br><i><small>Слот для плаща</small></i>"><img src="/assets/img/slot_cloak64.png"></span>
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Талисман</b><br><i><small>Слот для талисмана</small></i>"><img src="/assets/img/slot_trinket64.png"></span>
-					<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Левая рука</b><br><i><small>Слот для оружия или щита</small></i>"><img src="/assets/img/slot_shield64.png"></span>
+					<? $necklace_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'necklace')): ?>
+							<? $necklace_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$necklace_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Ожерелье</b><br><i><small>Слот для ожерелья</small></i>"><img src="/assets/img/slot_necklace64.png"></span>
+					<? endif ?>
+
+					<? $cloak_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'cloak')): ?>
+							<? $cloak_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$cloak_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Накидка</b><br><i><small>Слот для плаща</small></i>"><img src="/assets/img/slot_cloak64.png"></span>
+					<? endif ?>
+
+					<? $trinket_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'trinket')): ?>
+							<? $trinket_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$trinket_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Талисман</b><br><i><small>Слот для талисмана</small></i>"><img src="/assets/img/slot_trinket64.png"></span>
+					<? endif ?>
+
+					<? $shield_equipped = false ?>
+					<? foreach ($this->user->player->player_items as $player_item): ?>
+						<? if (($player_item->equipped) && ($player_item->item->type == 'shield')): ?>
+							<? $shield_equipped = true ?>
+							<? $this->widget('PlayerEquippedItem', ['player_item' => $player_item]) ?>
+						<? endif ?>
+					<? endforeach ?>
+					<? if (!$shield_equipped): ?>
+						<span class="border rounded border-secondary av-item" data-toggle="tooltip" data-html="true" title="<b>Левая рука</b><br><i><small>Слот для оружия или щита</small></i>"><img src="/assets/img/slot_shield64.png"></span>
+					<? endif ?>
 				</div>
 			</div>
 		</div>
@@ -59,25 +137,38 @@
 <h4>Рюкзак</h4>
 <div class="player-items">
 	<? foreach ($this->user->player->player_items as $player_item): ?>
-		<div class="item-entry">
-			<div class="border rounded <?= $player_item->item->class ?>" style="background-color: #6b6;" data-toggle="tooltip" data-html="true" title="<b><?= $player_item->item->name ?></b><br><i><small><?= $player_item->item->description ?></small></i>">
-				<img src="/assets/img/<?= $player_item->item->img ?>64.png">
-				<div class="counter">
-					<?= $player_item->amount ?>
+		<? if (!$player_item->equipped): ?>
+			<div class="item-entry">
+				<div class="border rounded <?= $player_item->item->class ?>" style="background-color: <?= Item::getQualityColor($player_item->quality) ?>;" data-toggle="tooltip" data-html="true" title="<b><?= $player_item->item->name ?></b><br><i><small><?= $player_item->item->description ?></small></i>">
+					<img src="/assets/img/<?= $player_item->item->img ?>64.png">
+					<? if ($player_item->item->required_lvl > 1): ?>
+						<div class="counter rq_lvl <? if (!$this->user->player->canUsePlayerItem($player_item)): ?> err<? endif ?>" title="требует уровень">
+							<?= $player_item->item->required_lvl ?>
+						</div>
+					<? endif ?>
+					<? if ($player_item->item->stack !== 1): ?>
+						<div class="counter" title="количество">
+							<?= $player_item->amount ?>
+						</div>
+					<? endif ?>
+				</div>
+				<div class="item-action text-center" style="background-color: #222;">
+					<? if ($player_item->item->use_text): ?>
+						<? if ($this->user->player->canUsePlayerItem($player_item)): ?>
+							<? if ($player_item->item->use_link): ?>
+								<a href="<?= $player_item->item->use_link ?>"><?= $player_item->item->use_text ?></a>
+							<? else: ?>
+								<a href="/player/item/use/id/<?= $player_item->id ?>"><?= $player_item->item->use_text ?></a>
+							<? endif ?>
+						<? else: ?>
+							<a href="#" disabled="disabled" onClick="return false;"><?= $player_item->item->use_text ?></a>
+						<? endif ?>
+					<? else: ?>
+						&nbsp;
+					<? endif ?>
 				</div>
 			</div>
-			<div class="item-action text-center" style="background-color: #222;">
-				<? if ($player_item->item->use_text): ?>
-					<? if ($player_item->item->use_link): ?>
-						<a href="<?= $player_item->item->use_link ?>"><?= $player_item->item->use_text ?></a>
-					<? else: ?>
-						<a href="/player/item/use/id/<?= $player_item->id ?>"><?= $player_item->item->use_text ?></a>
-					<? endif ?>
-				<? else: ?>
-					&nbsp;
-				<? endif ?>
-			</div>
-		</div>
+		<? endif ?>
 	<? endforeach ?>
 	<div class="item-entry">
 		<div class="border rounded border-dark" style="background-color: #bbb;">

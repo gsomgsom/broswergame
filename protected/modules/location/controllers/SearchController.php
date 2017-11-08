@@ -16,7 +16,7 @@ class SearchController extends LoggedController
 		}
 		else {
 			$time = strtotime(date('Y-m-d H:i', time()));
-			$this->user->player->setStateCooldown('search', $time + 10 * 60);
+			$this->user->player->setStateCooldown('search', $time + Yii::app()->params['location_search_fast']);
 			$this->user->player->setStateVal('search', 'fast', true);
 			Yii::app()->user->setFlash('success', Yii::t('success', 'Удачи в поисках!'));
 		}
@@ -37,7 +37,7 @@ class SearchController extends LoggedController
 		}
 		else {
 			$time = strtotime(date('Y-m-d H:i', time()));
-			$this->user->player->setStateCooldown('search', $time + 60 * 60);
+			$this->user->player->setStateCooldown('search', $time + Yii::app()->params['location_search_long']);
 			$this->user->player->setStateVal('search', 'long', true);
 			Yii::app()->user->setFlash('success', Yii::t('success', 'Удачи в поисках!'));
 		}

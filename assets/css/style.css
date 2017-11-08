@@ -65,6 +65,13 @@ a {
 	font-weight: bold;
 	font-size: 12px;
 }
+.counter.rq_lvl {
+	right: inherit;
+	left: 2px;
+}
+.counter.err {
+	color: #f00;
+}
 .av-item {
 	margin-bottom: 2px !important;
 }

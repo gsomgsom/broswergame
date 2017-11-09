@@ -125,7 +125,7 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-12 col-md-3" id="sidebar">
+				<div class="col-12 col-md-3 sidebar-left">
 					<? $this->widget('SidebarLeft') ?>
 				</div>
 				<div class="col-12 col-md-9">

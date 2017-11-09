@@ -3,6 +3,7 @@ body {
 	overflow-x: hidden;
 	font-family: 'Cuprum', sans-serif;
 	line-height: 1.2em;
+	background-color: #de9;
 }
 footer {
 	padding: 30px 0;
@@ -10,12 +11,26 @@ footer {
 a {
 	color: #795;
 }
+.sidebar-left {
+	background: #efa;
+}
 .navbar {
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
+.nav-tabs {
+    border-bottom: 1px solid #795;
+
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	background-color: #de9;
+    border-color: #795 #795 #de9;
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    border-color: #795 #795 #de9;
+}
 .top-nav a:hover{
-	color: #fff !important;
+	color: #de9 !important;
 }
 .log-tab {
 	margin-bottom: .5rem;
@@ -36,7 +51,7 @@ a {
 	color: red;
 }
 .progress-text {
-	color: #fff;
+	color: #de9;
 	width: 100%;
 	position: absolute;
 	top: 2px;
@@ -58,12 +73,19 @@ a {
 	position: absolute;
 	bottom: 2px;
 	right: 2px;
-	background-color: #fff;
+	background-color: #de9;
 	padding: 2px 3px;
 	border-radius: 4px;
 	line-height: 1;
 	font-weight: bold;
 	font-size: 12px;
+}
+.counter.rq_lvl {
+	right: inherit;
+	left: 2px;
+}
+.counter.err {
+	color: #f00;
 }
 .av-item {
 	margin-bottom: 2px !important;
@@ -82,7 +104,7 @@ a {
 	margin: 1px 0px 0px 0px;
 	font-size: 14px;
 	background-color: #666;
-	color: #fff;
+	color: #de9;
 	line-height: 1rem;
 	text-transform: uppercase;
 }
@@ -90,8 +112,11 @@ a {
 	color: #ccc;
 }
 .item-action a:hover {
-	color: #fff;
+	color: #de9;
 	text-decoration: none;
+}
+.card {
+	background-color: inherit;
 }
 .nopadding {
 	padding: 0;

@@ -7,30 +7,30 @@
  * @description Предмет. Всё что связано с предметами и действиями над ним.
  */
 
-class Item extends CActiveRecord {
+class Item extends BaseModel {
 	// Качество предметов - значения кодов
-	const QUALITY_INFINITY         = 5;
-	const QUALITY_DURABLE          = 4;
-	const QUALITY_BAD              = 3;
-	const QUALITY_NORMAL           = 2;
-	const QUALITY_GOOD             = 1;
 	const QUALITY_POOR             = 0;
+	const QUALITY_COMMON           = 1;
+	const QUALITY_UNCOMMON         = 2;
+	const QUALITY_RARE             = 3;
+	const QUALITY_EPIC             = 4;
+	const QUALITY_ARTIFACT         = 5;
 
 	// Качество предметов - названия
-	const QUALITY_INFINITY_TEXT    = 'бесконечный';
-	const QUALITY_DURABLE_TEXT     = 'теряющий прочность';
-	const QUALITY_BAD_TEXT         = 'утерян';
-	const QUALITY_NORMAL_TEXT      = 'средний';
-	const QUALITY_GOOD_TEXT        = 'отличный';
-	const QUALITY_POOR_TEXT        = 'непригодный';
+	const QUALITY_POOR_TEXT        = 'хлам';
+	const QUALITY_COMMON_TEXT      = 'обычный';
+	const QUALITY_UNCOMMON_TEXT    = 'необычный';
+	const QUALITY_RARE_TEXT        = 'редкий';
+	const QUALITY_EPIC_TEXT        = 'эпический';
+	const QUALITY_ARTIFACT_TEXT    = 'артифакт';
 
 	// Качество предметов - цвета
-	const QUALITY_INFINITY_COLOR   = '#656565';
-	const QUALITY_DURABLE_COLOR    = '#006789';
-	const QUALITY_BAD_COLOR        = '#a43c20';
-	const QUALITY_NORMAL_COLOR     = '#7c8700';
-	const QUALITY_GOOD_COLOR       = '#007208';
-	const QUALITY_POOR_COLOR       = '#525252';
+	const QUALITY_POOR_COLOR       = '#555';
+	const QUALITY_COMMON_COLOR     = '#666';
+	const QUALITY_UNCOMMON_COLOR   = '#068';
+	const QUALITY_RARE_COLOR       = '#339';
+	const QUALITY_EPIC_COLOR       = '#707';
+	const QUALITY_ARTIFACT_COLOR   = '#a42';
 
 	/**
 	 * Название таблицы в БД
@@ -47,21 +47,25 @@ class Item extends CActiveRecord {
 	 */
 	public function rules() {
 		return [
-			['name', 'safe'],				// название предмета
-			['php_class', 'safe'],			// php - класс, в котором описано поведение предмета (use, unuse, sell, buy, loot...)
-			['img', 'safe'],				// картинка (возможно при компиляции спрайтов будет означать класс картинки)
-			['description', 'safe'],		// текстовое описание
-			['notice', 'safe'],				// примечание к описанию (выводится курсивом), обычно пусто
-			['use_text', 'safe'],			// текст на кнопке "открыть", "выпить", и т.д.
-			['use_link', 'safe'],			// ссылка на использование, как правило ссылка на локацию или null
-			['bag', 'safe'],				// отдел сумки, где лежит
-			['class', 'safe'],				// css - класс
-			['required_lvl', 'safe'],		// требуемый уровень для пользования предметом
-			['use_stack', 'safe'],			// за раз используется use_stack предметов
-			['stack', 'safe'],				// предметов в стопке (если предмет не собирается в стопке, то 1)
-			['bag_limit', 'safe'],			// лимит предметов в сумке у игрока
-			['nosell', 'safe'],				// предмет не подлежит продаже
-			['default_quality', 'safe'],	// качество предмета по-умолчанию (при первом получении игроком)
+			['name', 'safe'],					// название предмета
+			['php_class', 'safe'],				// php - класс, в котором описано поведение предмета (use, unuse, sell, buy, loot...)
+			['img', 'safe'],					// картинка (возможно при компиляции спрайтов будет означать класс картинки)
+			['description', 'safe'],			// текстовое описание
+			['notice', 'safe'],					// примечание к описанию (выводится курсивом), обычно пусто
+			['use_text', 'safe'],				// текст на кнопке "открыть", "выпить", и т.д.
+			['use_link', 'safe'],				// ссылка на использование, как правило ссылка на локацию или null
+			['bag', 'safe'],					// отдел сумки, где лежит
+			['type', 'safe'],					// тип предмета, trash, collect, container, consumable, helm, cloak...
+			['class', 'safe'],					// css - класс
+			['required_lvl', 'safe'],			// требуемый уровень для пользования предметом
+			['use_stack', 'safe'],				// за раз используется use_stack предметов
+			['stack', 'safe'],					// предметов в стопке (если предмет не собирается в стопке, то 1)
+			['bag_limit', 'safe'],				// лимит предметов в сумке у игрока
+			['nosell', 'safe'],					// предмет не подлежит продаже
+			['quality', 'safe'],				// качество предмета по-умолчанию
+			['price_sell_coins', 'safe'],		// цена продажи в магазин, монеты
+			['price_sell_nuts', 'safe'],		// цена продажи в магазин, жёлуди
+			['price_sell_mushrooms', 'safe'],	// цена продажи в магазин, грибы
 		];
 	}
 
@@ -115,32 +119,6 @@ class Item extends CActiveRecord {
 	}
 
 	/**
-	 * Возвращает качество предметов по значению кода $quality, атрибут HTML "sytle'
-	 * @quality integer Код качества предмета
-	 * @return string
-	 */
-	public static function getQualityStyle($quality) {
-		if ($quality == self::QUALITY_POOR) {
-			return ' style="color: '.self::QUALITY_POOR_COLOR.';"';
-		}
-		elseif ($quality == self::QUALITY_GOOD) {
-			return ' style="color: '.self::QUALITY_GOOD_COLOR.';"';
-		}
-		elseif ($quality == self::QUALITY_NORMAL) {
-			return ' style="color: '.self::QUALITY_NORMAL_COLOR.';"';
-		}
-		elseif ($quality == self::QUALITY_BAD) {
-			return ' style="color: '.self::QUALITY_BAD_COLOR.';"';
-		}
-		elseif ($quality == self::QUALITY_DURABLE) {
-			return ' style="color: '.self::QUALITY_DURABLE_COLOR.';"';
-		}
-		else {
-			return '';
-		}
-	}
-
-	/**
 	 * Возвращает качество предметов, по значению кода $quality, текст
 	 * @quality integer Код качества предмета
 	 * @return string
@@ -149,20 +127,52 @@ class Item extends CActiveRecord {
 		if ($quality == self::QUALITY_POOR) {
 			return self::QUALITY_POOR_TEXT;
 		}
-		elseif ($quality == self::QUALITY_GOOD) {
-			return self::QUALITY_GOOD_TEXT;
+		elseif ($quality == self::QUALITY_COMMON) {
+			return self::QUALITY_COMMON_TEXT;
 		}
-		elseif ($quality == self::QUALITY_NORMAL) {
-			return self::QUALITY_NORMAL_TEXT;
+		elseif ($quality == self::QUALITY_UNCOMMON) {
+			return self::QUALITY_UNCOMMON_TEXT;
 		}
-		elseif ($quality == self::QUALITY_BAD) {
-			return self::QUALITY_BAD_TEXT;
+		elseif ($quality == self::QUALITY_RARE) {
+			return self::QUALITY_RARE_TEXT;
 		}
-		elseif ($quality == self::QUALITY_DURABLE) {
-			return self::QUALITY_DURABLE_TEXT;
+		elseif ($quality == self::QUALITY_EPIC) {
+			return self::QUALITY_EPIC_TEXT;
+		}
+		elseif ($quality == self::QUALITY_ARTIFACT) {
+			return self::QUALITY_ARTIFACT_TEXT;
 		}
 		else {
-			return self::QUALITY_INFINITY_TEXT;
+			return self::QUALITY_POOR_TEXT;
+		}
+	}
+
+	/**
+	 * Возвращает цвет предметов, по значению кода $quality, HTML-цвет
+	 * @quality integer Код качества предмета
+	 * @return string
+	 */
+	public static function getQualityColor($quality) {
+		if ($quality == self::QUALITY_POOR) {
+			return self::QUALITY_POOR_COLOR;
+		}
+		elseif ($quality == self::QUALITY_COMMON) {
+			return self::QUALITY_COMMON_COLOR;
+		}
+		elseif ($quality == self::QUALITY_UNCOMMON) {
+			return self::QUALITY_UNCOMMON_COLOR;
+		}
+		elseif ($quality == self::QUALITY_RARE) {
+			return self::QUALITY_RARE_COLOR;
+		}
+		elseif ($quality == self::QUALITY_EPIC) {
+			return self::QUALITY_EPIC_COLOR;
+		}
+		elseif ($quality == self::QUALITY_ARTIFACT) {
+			return self::QUALITY_ARTIFACT_COLOR;
+		}
+		else {
+			return self::QUALITY_POOR_COLOR;
 		}
 	}
 
@@ -174,13 +184,19 @@ class Item extends CActiveRecord {
 	 * @return array
 	 */
 	public function useItem($player_item, $amount) {
-		if ($player_item->amount >= $player_item->item->use_stack) {
-			$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);
-			Yii::app()->user->setFlash('error', 'Ничего не произошло.');
-			return true;
+		if ($player_item->player->lvl >= $player_item->item->required_lvl) {
+			if ($player_item->amount >= $player_item->item->use_stack) {
+				$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);
+				Yii::app()->user->setFlash('error', 'Ничего не произошло.');
+				return true;
+			}
+			else {
+				Yii::app()->user->setFlash('error', 'Маловато будет. Требуется '.$player_item->item->use_stack.' шт.');
+				return false;
+			}
 		}
 		else {
-			Yii::app()->user->setFlash('error', 'Маловато будет. Требуется '.$player_item->item->use_stack.' шт.');
+			Yii::app()->user->setFlash('error', 'Ещё рости и рости...');
 			return false;
 		}
 		return true;

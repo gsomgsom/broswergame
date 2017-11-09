@@ -3,11 +3,6 @@ class LoggedController extends CController {
 
 	public $user;
 
-	/**
-	 * @var string Сообщение (success / error / ещё что-нибудь)
-	 */
-	public $message = '';
-
 	protected function beforeAction($action) {
 		// не авторизованным юзерам следует авторизоваться
 		if (Yii::app()->user->isGuest) {

@@ -25,17 +25,17 @@ class ForumController extends LoggedController
 					{
 						$section->visible = 0;
 						if ($section->save())
-							$this->message = 'Сохранено';
+							Yii::app()->user->setFlash('success', Yii::t('success', 'Сохранено'));
 						else
-							$this->message = CHtml::errorSummary($section, '', '');
+							Yii::app()->user->setFlash('error', CHtml::errorSummary($section, '', ''));
 					}
 					elseif($_POST['action'] === 'show')
 					{
 						$section->visible = 1;
 						if ($section->save())
-							$this->message = 'Сохранено';
+							Yii::app()->user->setFlash('success', Yii::t('success', 'Сохранено'));
 						else
-							$this->message = CHtml::errorSummary($section, '', '');
+							Yii::app()->user->setFlash('error', CHtml::errorSummary($section, '', ''));
 					}
 					elseif($_POST['action'] === 'delete')
 					{

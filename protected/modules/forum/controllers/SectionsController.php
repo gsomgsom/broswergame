@@ -1,26 +1,26 @@
 <?php
 
-class ForumController extends LoggedController
+class SectionsController extends LoggedController
 {
 	public function actionIndex()
 	{
-		
+
 		//отслеживаем нажатие кнопок
 		$submit = $_POST ? Funcs::get($_POST, 'submit', 'save') : null;
-		
+
 		// если был нажат "Применить"
 		if($submit === 'save')
 		{
 			//массив id элементов над которыми надо провести действия
 			$ids = Funcs::get($_POST, 'id', []);
-			
+
 			if(isset($_POST['action']) & !empty($ids))
 			{
 				foreach($ids as $id)
 				{
 					//находим категорию(раздел) по id
 					$section = SectionsForum::model()->findByPk($id);
-					
+
 					if($_POST['action'] === 'hide')
 					{
 						$section->visible = 0;
@@ -56,7 +56,7 @@ class ForumController extends LoggedController
 		else
 		{
 			$sections = SectionsForum::model()->sorted()->visibled()->findAll();
-		}		
+		}
 
 		$params = [
 			'sections' => $sections,

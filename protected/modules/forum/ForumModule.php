@@ -2,7 +2,7 @@
 
 class ForumModule extends CWebModule
 {
-	public $defaultController = 'forum';
+	public $defaultController = 'sections';
 
 	public function init()
 	{

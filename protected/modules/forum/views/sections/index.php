@@ -77,7 +77,7 @@
 				<? foreach($sections as $section): ?>
 					<tr>
 						<td>
-							<a href="#" class="forum-sections-link"><?= $section->title ?></a>
+							<a href="<?= Funcs::base() ?>/forum/topics/view/id/<?= $section->id ?>" class="forum-sections-link"><?= $section->title ?></a>
 							<? if(isset($section->description) && !empty($section->description)): ?>
 								<div class="forum-sections-descriptions">
 									<?= Funcs::cropLongText($section->description, 60, true) ?>

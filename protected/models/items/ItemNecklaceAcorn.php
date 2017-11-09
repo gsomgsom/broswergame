@@ -10,11 +10,27 @@
 class ItemNecklaceAcorn extends ItemEquip {
 
 	/**
-	 * Название ауры
+	 * Заголовок ауры
 	 * @return string
 	 */
-	public function auraName() {
-		return 'Сокращение времени поиска желудей вдвое';
+	public function auraTitle() {
+		return 'Желудивое ожерелье';
+	}
+
+	/**
+	 * Иконка ауры
+	 * @return string
+	 */
+	public function auraIcon() {
+		return 'nuts';
+	}
+
+	/**
+	 * Описание ауры
+	 * @return string
+	 */
+	public function auraDescription() {
+		return '<b>Сокращение</b> <img class="i-clock" src="/assets/img/clock16.png" title="таймер"> времени поиска желудей <b>вдвое</b>';
 	}
 
 	/**

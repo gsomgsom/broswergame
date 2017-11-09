@@ -37,7 +37,7 @@ class ItemBoxTest extends Item {
 			$player_item->player->save();
 			$items = [];
 			if (rand(0, 1)) {
-				$items_drop = [2,3,4,5,6,7,8]; // id предметов, которые могут выпасть
+				$items_drop = [2,3,4,5,6,7,8,13]; // id предметов, которые могут выпасть
 				shuffle($items_drop);
 				for ($i=0; $i<rand(0, 2); $i++) {
 					$item = ['id' => array_shift($items_drop), 'amount' => 1];

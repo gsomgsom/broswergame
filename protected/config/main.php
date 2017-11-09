@@ -35,8 +35,11 @@ return [
 		'senderPass' => 'udz76zYZ',
 		'constructionMode' => !TEST_SERVER, // вместо страницы авторизации выводится заглушка с формой записи на тест
 
-		'location_search_fast' => 10 * 60,
-		'location_search_long' => 60 * 60,
+		'player_exp_rate' => 1, // множитель опыта игрока
+		'player_elixir_rate' => 1, // множитель длительности эликсиров
+
+		'location_search_fast' => 10 * 60, // поиск желудей, быстрый, 10 минут
+		'location_search_long' => 60 * 60, // поиск желудей, долгий, 60 минут
 	],
 	'defaultController' => 'site',
 	'modules' => [
@@ -69,7 +72,6 @@ return [
 			'urlFormat' => 'path',
 			'rules' => [
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>/<id>'=>'<controller>/<action>',
 
 				//'<controller(forum)>'=>'forum/<controller>',
 				//'<controller(forum)>/<action>/<id>'=>'forum/<controller>/<action>',

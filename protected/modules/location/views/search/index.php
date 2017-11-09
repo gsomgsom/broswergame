@@ -19,7 +19,7 @@
 	</script>
 <? else: ?>
 	<p class="text-center">
-		<a class="btn btn-success" href="/location/search/fast" role="button"><img src="/assets/img/nuts16.png" title="жёлуди"> Простой поиск (<?= round(Yii::app()->params['location_search_fast'] / 60) ?> минут)</a>
-		<a class="btn btn-success" href="/location/search/long" role="button"><img src="/assets/img/nuts16.png" title="жёлуди"> Долгий поиск (<?= round(Yii::app()->params['location_search_long'] / 60) ?> минут)</a>
+		<a class="btn btn-success" href="/location/search/fast" role="button"><img src="/assets/img/nuts16.png" title="жёлуди"> Простой поиск (<?= round(Yii::app()->params['location_search_fast'] / 60) ?> мин)</a>
+		<a class="btn btn-success" href="/location/search/long" role="button"><img src="/assets/img/nuts16.png" title="жёлуди"> Долгий поиск (<?= round(Yii::app()->params['location_search_long'] / 60) ?> мин)</a>
 	</p>
 <? endif ?>

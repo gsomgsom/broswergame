@@ -24,4 +24,28 @@ class BaseModel extends CActiveRecord {
 		return get_class($this);
 	}
 
+	/**
+	 * Иконка ауры
+	 * @return string
+	 */
+	public function auraIcon() {
+		return 'energy';
+	}
+
+	/**
+	 * Заголовок ауры
+	 * @return string
+	 */
+	public function auraTitle() {
+		return false;
+	}
+
+	/**
+	 * Описание ауры
+	 * @return string
+	 */
+	public function auraDescription() {
+		return false;
+	}
+
 }

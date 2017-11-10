@@ -34,7 +34,7 @@ class PlayerLog extends CActiveRecord {
 	public function relations() {
 		return [
 			'player' => [self::BELONGS_TO, 'Player', 'player_id'],
-			'type' => [self::HAS_ONE, 'LogType', ['type_id' => 'id']],
+			'type' => [self::HAS_MANY, 'LogType', ['id' => 'type_id']],
 		];
 	}
 
@@ -53,6 +53,7 @@ class PlayerLog extends CActiveRecord {
 	public function scopes() {
 		return [
 			'sorted' => ['order' => 't.id DESC'],
+			'visibled' => ['condition' => 'type.visible = 1'],
 		];
 	}
 

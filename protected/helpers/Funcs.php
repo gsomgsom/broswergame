@@ -153,4 +153,22 @@ class Funcs {
 		
 		return $text;
 	}
+
+	/**
+	 * Отладочное сообщение в лог
+	 *
+	 * @param string Сообщение
+	 * @return void
+	 */
+	public static function logMessage($message, $type = 'debug') {
+		$logType = LogType::model()->findByAttributes(['alias' => $type]);
+		$logEntry = new PlayerLog();
+		$logEntry->dt = date('Y-m-d H:i:s', time());
+		if (!empty($logType))
+			$logEntry->type_id = $logType->id;
+		$logEntry->player_id = Yii::app()->getController()->user->player->id;
+		$logEntry->html = $message;
+		$logEntry->save();
+	}
+
 }

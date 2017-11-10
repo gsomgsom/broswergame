@@ -287,11 +287,11 @@ class Player extends CActiveRecord {
 				$player_items = new PlayerItems;
 				$player_items->player_id = $this->id;
 				$player_items->item_id = $item_id;
-				$player_items->quality = Item::QUALITY_POOR;
+				$player_items->quality = $item->quality;
 				$player_items->amount = $amount + $old_amount;
 				if ($player_items->amount > $item->bag_limit) {
 					$player_items->amount = $item->bag_limit;
-					Yii::app()->user->setFlash('error', Yii::t('error', 'нехватает места в рюкзаке при создании предмета'));
+					Yii::app()->user->setFlash('error', Yii::t('error', 'недостаточно места в рюкзаке при создании предмета'));
 
 					// Пишем в лог и в сайдбар, что не вошло
 					$logType = LogType::model()->findByAttributes(['alias' => 'debug']);
@@ -310,7 +310,7 @@ class Player extends CActiveRecord {
 				$player_items = new PlayerItems;
 				$player_items->player_id = $this->id;
 				$player_items->item_id = $item_id;
-				$player_items->quality = $item->default_quality;
+				$player_items->quality = $item->quality;
 				$player_items->amount = 1;
 				return $player_items->save();
 			}

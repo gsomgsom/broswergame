@@ -23,7 +23,7 @@ class LogType extends CActiveRecord {
 	 */
 	public function rules() {
 		return [
-			['alias, title', 'safe'],
+			['alias, title, visible', 'safe'],
 		];
 	}
 
@@ -42,6 +42,7 @@ class LogType extends CActiveRecord {
 	public function scopes() {
 		return [
 			'sorted' => ['order' => 't.id DESC'],
+			'visibled' => ['condition' => 't.visible = 1'],
 		];
 	}
 

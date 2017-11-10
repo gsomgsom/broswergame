@@ -184,6 +184,9 @@ class Item extends BaseModel {
 	 * @return array
 	 */
 	public function useItem($player_item, $amount) {
+		// Пишем в лог
+		Funcs::logMessage('Используем предмет '.$player_item->id.':'.$player_item->item->id.' &laquo;'.$player_item->item->name.'&raquo; ('.$amount.')');
+
 		if ($player_item->player->lvl >= $player_item->item->required_lvl) {
 			if ($player_item->amount >= $player_item->item->use_stack) {
 				$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);

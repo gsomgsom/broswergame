@@ -13,7 +13,7 @@
 			overflow-x: hidden;
 			font-family: 'Cuprum', sans-serif;
 			margin: 0px;
-			background-color: #4F7336;
+			background: none;
 		}
 		.login-box {
 		    width: 400px;

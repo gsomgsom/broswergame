@@ -9,10 +9,11 @@
 		<link rel="stylesheet" href="/assets/css/style.css">
 		<title><? $this->widget('Title') ?></title>
 		<style>
-		body{
+		html, body{
 			overflow-x: hidden;
 			font-family: 'Cuprum', sans-serif;
 			margin: 0px;
+			background-color: #4F7336;
 		}
 		.login-box {
 		    width: 400px;

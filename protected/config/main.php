@@ -40,6 +40,8 @@ return [
 
 		'location_search_fast' => 10 * 60, // поиск желудей, быстрый, 10 минут
 		'location_search_long' => 60 * 60, // поиск желудей, долгий, 60 минут
+
+		'location_wheel' => 50, // начальная стоимость кручения колеса
 	],
 	'defaultController' => 'site',
 	'modules' => [

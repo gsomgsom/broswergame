@@ -185,6 +185,19 @@ class Player extends CActiveRecord {
 	}
 
 	/**
+	 * Возвращает числовое значение статуса с именем $alias
+	 * @alias string Название статуса
+	 * @return int Чистовое состояние статуса
+	 */
+	public function getStateIntVal($alias) {
+		$stateEntry = PlayerState::model()->findByAttributes(['player_id'=> $this->id, 'alias' => $alias]);
+		if (!empty($stateEntry)) {
+			return $stateEntry->state_int;
+		}
+		return 0;
+	}
+
+	/**
 	 * Устанавлиает параметры статуса с именем $alias
 	 * @alias string Название статуса
 	 * @params array Массив с параметрами статуса в формате 'key' => 'value'
@@ -240,6 +253,20 @@ class Player extends CActiveRecord {
 	public function setStateVal($alias, $val = null, $global = false) {
 		return $this->setStateParams($alias, [
 			'state_text' => $val,
+			'is_global' => $global ? 1 : 0
+		]);
+	}
+
+	/**
+	 * Устанавлиает числовое значение $val статуса с именем $alias
+	 * @alias string Название статуса
+	 * @val int Значение статуса
+	 * @global bool Глобальный
+	 * @return bool Результат сохранения статуса. Должно быть true если всё прошло удачно
+	 */
+	public function setStateIntVal($alias, $val = 0, $global = false) {
+		return $this->setStateParams($alias, [
+			'state_int' => (int)$val,
 			'is_global' => $global ? 1 : 0
 		]);
 	}

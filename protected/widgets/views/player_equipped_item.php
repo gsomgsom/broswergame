@@ -4,8 +4,13 @@
 	<? endif ?>
 	<img src="/assets/img/<?= $player_item->item->img ?>64.png">
 	<? if ($player_item->item->required_lvl > 1): ?>
-		<div class="counter rq_lvl <? if (!$this->getOwner()->user->player->canUsePlayerItem($player_item)): ?> err<? endif ?>" title="требует уровень">
+		<div class="counter rq_lvl <? if (!Yii::app()->getController()->user->player->canUsePlayerItem($player_item)): ?> err<? endif ?>" title="требует уровень">
 			<?= $player_item->item->required_lvl ?>
+		</div>
+	<? endif ?>
+	<? if ($player_item->item->stack !== 1): ?>
+		<div class="counter" title="количество">
+			<?= $player_item->amount ?>
 		</div>
 	<? endif ?>
 	<? if (!$look): ?>

@@ -18,6 +18,21 @@
 </ul>
 <div class="row">
 	<div class="col-md-12">
-		<p>@TODO</p>
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Параметр</th>
+					<th scope="col">Значение</th>
+					<th scope="col">Позиция в рейтинге</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<th>Кручений колеса:</th>
+				<td><?= $this->user->player->getStateIntVal('location_wheel_roll_count') ?></td>
+				<td>&mdash;</td>
+			</tr>
+			</tbody>
+		</table>
 	</div>
 </div>

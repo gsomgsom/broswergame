@@ -321,14 +321,7 @@ class Player extends CActiveRecord {
 					Yii::app()->user->setFlash('error', Yii::t('error', 'недостаточно места в рюкзаке при создании предмета'));
 
 					// Пишем в лог и в сайдбар, что не вошло
-					$logType = LogType::model()->findByAttributes(['alias' => 'debug']);
-					$logEntry = new PlayerLog();
-					$logEntry->dt = date('Y-m-d H:i:s', time());
-					if (!empty($logType))
-						$logEntry->type_id = $logType->id;
-					$logEntry->player_id = $this->id;
-					$logEntry->html = 'Ошибка добавления предмета id='.$item_id.', превышен лимит.';
-					$logEntry->save();
+					Funcs::logMessage('Ошибка добавления предмета id='.$item_id.', превышен лимит.');
 				}
 				return $player_items->save();
 			}

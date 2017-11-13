@@ -51,20 +51,15 @@ class ItemBoxTest extends Item {
 
 			Yii::app()->user->setFlash('success', Yii::t('success', 'Вы открыли подарок тестера!'));
 
-			// Запись в логе об этом безобразии
-			$logType = LogType::model()->findByAttributes(['alias' => 'resources']);
-			$logEntry = new PlayerLog();
-			$logEntry->dt = date('Y-m-d H:i:s', time());
-			if (!empty($logType))
-				$logEntry->type_id = $logType->id;
-			$logEntry->player_id = $player_item->player->id;
 			if (sizeof($drop_html)) {
-				$logEntry->html = 'Вы открыли подарок, и обнаружили там: '.implode(', ', $drop_html);
+				$log_html = 'Вы открыли подарок, и обнаружили там: '.implode(', ', $drop_html);
 			}
 			else {
-				$logEntry->html = 'Вы открыли подарок, но он оказался совсем пустой. Дурак тот дядя. И шутки у него дурацкие.';
+				$log_html = 'Вы открыли подарок, но он оказался совсем пустой. Дурак тот дядя. И шутки у него дурацкие.';
 			}
-			$logEntry->save();
+
+			// Запись в логе об этом безобразии
+			Funcs::logMessage($log_html, 'resources');
 
 			// Окно с контейнером @TODO
 			//$opendrop = $this->renderPartial('opendrop', [

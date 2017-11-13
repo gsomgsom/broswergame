@@ -8,6 +8,9 @@ class WheelItem extends CWidget {
 
     public function run() {
 		$item = Item::model()->findByPk($this->id);
+		if (empty($item)) {
+			$item = new Item;
+		}
 		$player_item = new PlayerItems;
 		$player_item->item = $item;
 		$player_item->amount = $this->amount;

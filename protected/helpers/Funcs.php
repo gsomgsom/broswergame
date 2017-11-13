@@ -160,13 +160,13 @@ class Funcs {
 	 * @param string Сообщение
 	 * @return void
 	 */
-	public static function logMessage($message, $type = 'debug') {
+	public static function logMessage($message, $type = 'debug', $player_id = 0) {
 		$logType = LogType::model()->findByAttributes(['alias' => $type]);
 		$logEntry = new PlayerLog();
 		$logEntry->dt = date('Y-m-d H:i:s', time());
 		if (!empty($logType))
 			$logEntry->type_id = $logType->id;
-		$logEntry->player_id = Yii::app()->getController()->user->player->id;
+		$logEntry->player_id = $player_id ? $player_id : Yii::app()->getController()->user->player->id;
 		$logEntry->html = $message;
 		$logEntry->save();
 	}

@@ -26,16 +26,22 @@ class Item extends BaseModel {
 
 	// Качество предметов - цвета
 	const QUALITY_POOR_COLOR       = '#555';
-	const QUALITY_COMMON_COLOR     = '#666';
-	const QUALITY_UNCOMMON_COLOR   = '#068';
-	const QUALITY_RARE_COLOR       = '#339';
+	const QUALITY_COMMON_COLOR     = '#aaa';
+	const QUALITY_UNCOMMON_COLOR   = '#083';
+	const QUALITY_RARE_COLOR       = '#229';
 	const QUALITY_EPIC_COLOR       = '#707';
-	const QUALITY_ARTIFACT_COLOR   = '#a42';
+	const QUALITY_ARTIFACT_COLOR   = '#c82';
+
+	public function __construct() {
+		$this->name = 'Пусто';
+		$this->description = 'Пусте';
+		$this->img = 'empty';
+		$this->quality = self::QUALITY_COMMON;
+	}
 
 	/**
 	 * Название таблицы в БД
 	 * @return string
-
 	 */
 	public function tableName() {
 		return '{{items}}';

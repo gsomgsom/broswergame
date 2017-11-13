@@ -13,8 +13,8 @@ class WheelController extends LoggedController
 			'amount' => 10,
 		],
 		[
-			'id' => 3,
-			'amount' => 10,
+			'id' => 0,
+			'amount' => 0,
 		],
 		[
 			'id' => 12,
@@ -58,6 +58,9 @@ class WheelController extends LoggedController
 			$prize = $this->wheel[rand(0, 7)];
 			Yii::app()->getController()->user->player->addItem($prize['id'], $prize['amount']);
 			$itemEntry = Item::model()->findByPk($prize['id']);
+			if (empty($itemEntry)) {
+				$itemEntry = new Item;
+			}
 			$amountText = '';
 			if ($prize['amount'] > 1) {
 				$amountText = ' (<strong>'.$prize['amount'].'</strong>)';

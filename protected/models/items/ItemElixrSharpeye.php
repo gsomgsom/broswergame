@@ -57,7 +57,7 @@ class ItemElixrSharpeye extends Item {
 			Yii::app()->getController()->user->player->setStateVal(get_class($this), 'spell');
 
 			Yii::app()->user->setFlash('error', null);
-			Yii::app()->user->setFlash('success', Yii::t('success', 'И глаз как у орла!'));
+			Yii::app()->user->setFlash('success', Yii::t('success', '__item_elixir_sharpeye__used'));
 			return true;
 		}
 		else

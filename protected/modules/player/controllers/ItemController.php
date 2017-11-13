@@ -12,13 +12,19 @@ class ItemController extends LoggedController
 		$amount = isset($_GET['amount']) ? (int)$_GET['amount'] : 1;
 		$player_item = PlayerItems::model()->findByPk($id);
 
-		if (!empty($player_item)) {
-			if ($player_item->player_id != $this->user->player->id) {
-				Yii::app()->user->setFlash('error', Yii::t('error', 'Куда? Чужое!'));
+		if (empty($player_item)) {
+			Yii::app()->user->setFlash('error', Yii::t('error', 'Такого предмета нет!'));
+			Funcs::logMessage('Попытка использования экземпляра предмета, которого нет (player_item_id = '.$id.')');
+		}
+		else {
+			if (empty($player_item->item)) {
+				Yii::app()->user->setFlash('error', Yii::t('error', 'Парадокс! Но такого предмета уже нет!'));
+				Funcs::logMessage('Попытка использования предмета, которого нет (player_item_id = '.$id.', item_id = '.$player_item->item_id.')');
 			}
 			else {
-				if (empty($player_item->item)) {
-					Yii::app()->user->setFlash('error', Yii::t('error', 'Такого предмета просто не может быть!'));
+				if ($player_item->player_id != $this->user->player->id) {
+					Yii::app()->user->setFlash('error', Yii::t('error', 'Куда? Чужое!'));
+					Funcs::logMessage('Попытка использования чужого предмета (player_item_id = '.$id.', item_id = '.$player_item->item->id.', player_id = '.$player_item->player_id.')');
 				}
 				else {
 					if (!is_null($player_item->item->php_class)) {
@@ -32,9 +38,6 @@ class ItemController extends LoggedController
 					
 				}
 			}
-		}
-		else {
-			Yii::app()->user->setFlash('error', Yii::t('error', 'Такого предмета нет!'));
 		}
 		$this->redirect('/player');
 	}

@@ -49,7 +49,7 @@ class ItemBoxTest extends Item {
 			}
 			$drop['items'] = $items;
 
-			Yii::app()->user->setFlash('success', Yii::t('success', 'Вы открыли подарок тестера!'));
+			Yii::app()->user->setFlash('success', Yii::t('success', '__item_box_test__used'));
 
 			if (sizeof($drop_html)) {
 				$log_html = 'Вы открыли подарок, и обнаружили там: '.implode(', ', $drop_html);

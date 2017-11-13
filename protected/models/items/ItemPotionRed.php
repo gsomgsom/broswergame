@@ -19,7 +19,7 @@ class ItemPotionRed extends Item {
 			$player_item->player->save();
 
 			Yii::app()->user->setFlash('error', null);
-			Yii::app()->user->setFlash('success', Yii::t('success', 'О чудо! Он может ходить!'));
+			Yii::app()->user->setFlash('success', Yii::t('success', '__item_potion_red__used'));
 			return true;
 		}
 		else

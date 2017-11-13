@@ -211,4 +211,12 @@ class Item extends BaseModel {
 		return true;
 	}
 
+	public function getLogText($amount = 1) {
+		$usedAmount = '';
+		if ($amount > 1) {
+			$usedAmount = ' x '.$amount;
+		}
+		return '<img src="/assets/img/'.$this->img.'16.png" title="'.$this->name.'"> <b>'.$this->name.'</b>'.$usedAmount;
+	}
+
 }

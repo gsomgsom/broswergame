@@ -16,7 +16,7 @@ class ItemPotion extends Item {
 	public function useItem($player_item, $amount) {
 		if (parent::useItem($player_item, $amount)) {
 			Yii::app()->user->setFlash('error', null);
-			Yii::app()->user->setFlash('success', 'Пьём снадобье. Увы, это плацебо. Ничего не произошло.');
+			Yii::app()->user->setFlash('success', Yii::t('success', '__item_potion__used'));
 			return true;
 		}
 		else

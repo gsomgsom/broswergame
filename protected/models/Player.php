@@ -318,7 +318,7 @@ class Player extends CActiveRecord {
 				$player_items->amount = $amount + $old_amount;
 				if ($player_items->amount > $item->bag_limit) {
 					$player_items->amount = $item->bag_limit;
-					Yii::app()->user->setFlash('error', Yii::t('error', 'недостаточно места в рюкзаке при создании предмета'));
+					Yii::app()->user->setFlash('error', Yii::t('error', '__player_add_item__no_free_space'));
 
 					// Пишем в лог и в сайдбар, что не вошло
 					Funcs::logMessage('Ошибка добавления предмета id='.$item_id.', превышен лимит.');

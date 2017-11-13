@@ -34,7 +34,7 @@ class Item extends BaseModel {
 
 	public function __construct() {
 		$this->name = 'Пусто';
-		$this->description = 'Пусте';
+		$this->description = 'Пустое';
 		$this->img = 'empty';
 		$this->quality = self::QUALITY_COMMON;
 	}

@@ -15,7 +15,7 @@ class BattleController extends LoggedController
 
 	public function actionLog() {
 		Yii::app()->params['pageTitle'] = 'Лог боя';
-		Yii::app()->user->setFlash('error', Yii::t('error', 'Не реализовано ;-('));
+		Yii::app()->user->setFlash('error', Yii::t('error', '__not_implemented'));
 		if (isset($_SERVER['HTTP_REFERER'])) {
 			$this->redirect($_SERVER['HTTP_REFERER']);
 		}

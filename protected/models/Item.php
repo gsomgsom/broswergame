@@ -196,21 +196,28 @@ class Item extends BaseModel {
 		if ($player_item->player->lvl >= $player_item->item->required_lvl) {
 			if ($player_item->amount >= $player_item->item->use_stack) {
 				$player_item->player->removeItem($player_item->item_id, $player_item->item->use_stack);
-				Yii::app()->user->setFlash('error', 'Ничего не произошло.');
+				Yii::app()->user->setFlash('success', Yii::t('error', '__item__used'));
 				return true;
 			}
 			else {
-				Yii::app()->user->setFlash('error', 'Маловато будет. Требуется '.$player_item->item->use_stack.' шт.');
+				Yii::app()->user->setFlash('error', Yii::t('error', '__item__used_need_amount', [
+					'{amount}' => $player_item->item->use_stack,
+				]));
 				return false;
 			}
 		}
 		else {
-			Yii::app()->user->setFlash('error', 'Ещё рости и рости...');
+			Yii::app()->user->setFlash('error', Yii::t('error', '__item__used_need_lvl'));
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Возвращает HTML-текст с названием, иконкой и количеством предмета для вывода в лог
+	 * @amount integer Количество
+	 * @return string HTML
+	 */
 	public function getLogText($amount = 1) {
 		$usedAmount = '';
 		if ($amount > 1) {

@@ -18,7 +18,7 @@ class UsersettingsController extends LoggedController
 			if ($model->validate()) {
 				$this->user->email = $model->email;
 				$this->user->save();
-				Yii::app()->user->setFlash('success', Yii::t('success', 'Новый адрес E-mail успешно сохранён.'));
+				Yii::app()->user->setFlash('success', Yii::t('success', '__usersettings_controller__email'));
 			}
 		}
 

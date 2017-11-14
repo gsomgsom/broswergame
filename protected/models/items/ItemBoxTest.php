@@ -42,7 +42,7 @@ class ItemBoxTest extends Item {
 				for ($i=0; $i<rand(0, 2); $i++) {
 					$item = ['id' => array_shift($items_drop), 'amount' => 1];
 					$itemEntry = Item::model()->findByPk($item['id']);
-					$drop_html []= '<img src="/assets/img/item16.png" title="предмет"> <b>'.$itemEntry->name.'</b>';
+					$drop_html []= $itemEntry->getLogText(1);
 					$items []= $item;
 					$player_item->player->addItem($item['id'], $item['amount']);
 				}
@@ -52,10 +52,12 @@ class ItemBoxTest extends Item {
 			Yii::app()->user->setFlash('success', Yii::t('success', '__item_box_test__used'));
 
 			if (sizeof($drop_html)) {
-				$log_html = 'Вы открыли подарок, и обнаружили там: '.implode(', ', $drop_html);
+				$log_html = Yii::t('success', '__item_box_test__used_loot', [
+					'{loot}' => implode(', ', $drop_html),
+				]);
 			}
 			else {
-				$log_html = 'Вы открыли подарок, но он оказался совсем пустой. Дурак тот дядя. И шутки у него дурацкие.';
+				$log_html = Yii::t('success', '__item_box_test__used_no_loot');
 			}
 
 			// Запись в логе об этом безобразии

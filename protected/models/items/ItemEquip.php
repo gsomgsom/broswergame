@@ -49,14 +49,18 @@ class ItemEquip extends Item {
 				$player_item->equipped = 0;
 				$player_item->save();
 				$this->onUnEequip($player_item);
-				Yii::app()->user->setFlash('success', 'Вы сняли &laquo;'.$player_item->item->name.'&raquo;');
+				Yii::app()->user->setFlash('success', Yii::t('success', '__item_equip__used_put_off', [
+					'{item_name}' => $player_item->item->name,
+				]));
 			}
 			else {
 				// Надеваем предмет
 				$player_item->equipped = 1;
 				$player_item->save();
 				$this->onEequip($player_item);
-				Yii::app()->user->setFlash('success', 'Вы надели &laquo;'.$player_item->item->name.'&raquo;');
+				Yii::app()->user->setFlash('success', Yii::t('success', '__item_equip__used_put_on', [
+					'{item_name}' => $player_item->item->name,
+				]));
 			}
 
 			return true;

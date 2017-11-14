@@ -112,10 +112,10 @@ class Funcs {
 	 * array, the default value will be returned instead.
 	 *
 	 *     // Get the value "username" from $_POST, if it exists
-	 *     $username = Arr::get($_POST, 'username');
+	 *     $username = Funcs::get($_POST, 'username');
 	 *
 	 *     // Get the value "sorting" from $_GET, if it exists
-	 *     $sorting = Arr::get($_GET, 'sorting');
+	 *     $sorting = Funcs::get($_GET, 'sorting');
 	 *
 	 * @param   array   $array      array to extract from
 	 * @param   string  $key        key name

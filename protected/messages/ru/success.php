@@ -32,6 +32,12 @@ return [
 	'__item_scroll_test__used_loot'                            => 'Вы сколдовали {item}, и тотчас получили: {loot}',
 	'__item_scroll_test__used_no_loot'                         => 'Вы сколдовали {item}, но ничего не получили.',
 
-	// UsersettingsController
+	// player/UsersettingsController
 	'__usersettings_controller__email'                         => 'Новый адрес E-mail успешно сохранён.',
+
+	// location/ScoutController
+	'__scout_controller__goodluck'                             => 'Удачной охоты!',
+
+	// location/ScoutController
+	'__search_controller__goodluck'                            => 'Удачи в поисках!',
 ];

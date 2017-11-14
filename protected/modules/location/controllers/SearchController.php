@@ -10,15 +10,14 @@ class SearchController extends LoggedController
 
 	// Быстрый поиск желудей
 	public function actionFast() {
-		$searchVal = $this->user->player->getStateVal('search');
-		if (!is_null($searchVal)) {
-			Yii::app()->user->setFlash('error', Yii::t('error', 'Вы уже заняты поиском.'));
+		if ($this->user->player->isWorking()) {
+			Yii::app()->user->setFlash('error', Yii::t('error', '__already_working'));
 		}
 		else {
 			$time = strtotime(date('Y-m-d H:i', time()));
 			$this->user->player->setStateCooldown('search', $time + Yii::app()->params['location_search_fast']);
 			$this->user->player->setStateVal('search', 'fast', true);
-			Yii::app()->user->setFlash('success', Yii::t('success', 'Удачи в поисках!'));
+			Yii::app()->user->setFlash('success', Yii::t('success', '__search_controller__goodluck'));
 		}
 
 		if (isset($_SERVER['HTTP_REFERER'])) {
@@ -31,15 +30,14 @@ class SearchController extends LoggedController
 
 	// Долгий поиск желудей
 	public function actionLong() {
-		$searchVal = $this->user->player->getStateVal('search');
-		if (!is_null($searchVal)) {
-			Yii::app()->user->setFlash('error', Yii::t('error', 'Вы уже заняты поиском.'));
+		if ($this->user->player->isWorking()) {
+			Yii::app()->user->setFlash('error', Yii::t('error', '__already_working'));
 		}
 		else {
 			$time = strtotime(date('Y-m-d H:i', time()));
 			$this->user->player->setStateCooldown('search', $time + Yii::app()->params['location_search_long']);
 			$this->user->player->setStateVal('search', 'long', true);
-			Yii::app()->user->setFlash('success', Yii::t('success', 'Удачи в поисках!'));
+			Yii::app()->user->setFlash('success', Yii::t('success', '__search_controller__goodluck'));
 		}
 
 		if (isset($_SERVER['HTTP_REFERER'])) {

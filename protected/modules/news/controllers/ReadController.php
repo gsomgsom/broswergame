@@ -5,7 +5,7 @@ class ReadController extends LoggedController
 	public function actionIndex() {
 		Yii::app()->params['pageTitle'] = 'Новости';
 		$params = [];
-		$params['news'] = News::model()->publicated()->findAll();
+		$params['news'] = News::model()->publicated()->sorted()->findAll();
 		$this->render('index', $params);
 	}
 

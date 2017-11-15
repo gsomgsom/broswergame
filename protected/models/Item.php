@@ -32,12 +32,9 @@ class Item extends BaseModel {
 	const QUALITY_EPIC_COLOR       = '#707';
 	const QUALITY_ARTIFACT_COLOR   = '#c82';
 
-	public function __construct() {
-		$this->name = 'Пусто';
-		$this->description = 'Пустое';
-		$this->img = 'empty';
-		$this->quality = self::QUALITY_COMMON;
-	}
+	public $name = 'Пусто';
+	public $description = 'Пустое';
+	public $quality = self::QUALITY_COMMON;
 
 	/**
 	 * Название таблицы в БД
@@ -54,6 +51,7 @@ class Item extends BaseModel {
 	public function rules() {
 		return [
 			['name', 'safe'],					// название предмета
+			['name', 'required'],
 			['php_class', 'safe'],				// php - класс, в котором описано поведение предмета (use, unuse, sell, buy, loot...)
 			['img', 'safe'],					// картинка (возможно при компиляции спрайтов будет означать класс картинки)
 			['description', 'safe'],			// текстовое описание
@@ -64,9 +62,11 @@ class Item extends BaseModel {
 			['type', 'safe'],					// тип предмета, trash, collect, container, consumable, helm, cloak...
 			['class', 'safe'],					// css - класс
 			['required_lvl', 'safe'],			// требуемый уровень для пользования предметом
-			['use_stack', 'safe'],				// за раз используется use_stack предметов
+			['required_lvl', 'required'],
 			['stack', 'safe'],					// предметов в стопке (если предмет не собирается в стопке, то 1)
+			['use_stack', 'safe'],				// за раз используется use_stack предметов
 			['bag_limit', 'safe'],				// лимит предметов в сумке у игрока
+			['variant', 'safe'],				// вариант предмета (обычно null)
 			['nosell', 'safe'],					// предмет не подлежит продаже
 			['quality', 'safe'],				// качество предмета по-умолчанию
 			['price_sell_coins', 'safe'],		// цена продажи в магазин, монеты
@@ -90,6 +90,8 @@ class Item extends BaseModel {
 	public function attributeLabels() {
 		return [
 			'id' => 'id',
+			'name' => 'Название',
+			'php_class' => 'PHP Class',
 		];
 	}
 
@@ -117,7 +119,8 @@ class Item extends BaseModel {
 	 */
 	public function beforeSave() {
 		if (parent::beforeSave()) {
-			// @TODO
+			if ($this->variant == '')
+				$this->variant = null;
 			return true;
 		}
 		else
@@ -180,6 +183,14 @@ class Item extends BaseModel {
 		else {
 			return self::QUALITY_POOR_COLOR;
 		}
+	}
+
+	/**
+	 * Возвращает HTML-цвет предмета
+	 * @return string
+	 */
+	public function getColor() {
+		return self::getQualityColor($this->quality);
 	}
 
 	/**

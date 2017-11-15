@@ -46,4 +46,18 @@ class News extends CActiveRecord {
 		];
 	}
 
+	/**
+	 * Действие перед сохранением в БД
+	 * @return bool
+	 */
+	public function beforeSave() {
+		if (parent::beforeSave()) {
+			if ($this->dt == '')
+				$this->dt = date('Y-m-d H:i:s');
+			return true;
+		}
+		else
+			return false;
+	}
+
 }

@@ -240,4 +240,22 @@ a {
 	margin-top: 5px;
 }
 
+.breadcrumbs{
+	list-style-type: none;
+	margin-top: 10px;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.breadcrumbs__item{
+	display: inline-block;
+}
+
+.breadcrumbs__link::after{
+	margin-right: 3px;
+	display: inline-block;
+	content: "-";
+	margin-left: 5px;
+}
+
 /*========Forum end=======*/

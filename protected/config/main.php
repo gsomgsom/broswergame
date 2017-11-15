@@ -84,9 +84,6 @@ return [
 			'urlFormat' => 'path',
 			'rules' => [
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-
-				//'<controller(forum)>'=>'forum/<controller>',
-				//'<controller(forum)>/<action>/<id>'=>'forum/<controller>/<action>',
 			],
 		],
 	],

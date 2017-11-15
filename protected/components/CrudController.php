@@ -92,8 +92,8 @@ class CrudController extends LoggedController {
 	 * @throws CHttpException
 	 */
 	public function loadModel($id) {
-		$model = $this->modelClass;
-		$model::model()->findByPk($id);
+		$modelClass = $this->modelClass;
+		$model = $modelClass::model()->findByPk($id);
 		if($model === null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -12,6 +12,8 @@ class Player extends CActiveRecord {
 	const GENDER_FEMALE            = 0;
 	const GENDER_MALE              = 1;
 
+	private $__old_lvl;
+
 	/**
 	 * Название таблицы в БД
 	 * @return string
@@ -30,7 +32,7 @@ class Player extends CActiveRecord {
 			['nickname', 'unique'],
 			['gender', 'in', 'range' => [0,1], 'message' => Yii::t('error', '__player__validate_unknown_gender')],
 			['lvl, exp, hp, coins, nuts, mushrooms, str, def, dex, sta, int, might, carma', 'numerical'],
-			['nickname', 'safe'],
+			['nickname, last_action', 'safe'],
 		];
 	}
 
@@ -40,11 +42,13 @@ class Player extends CActiveRecord {
 	 */
 	public function relations() {
 		return [
-			'user'           => [self::BELONGS_TO, 'User', 'user_id'],
-			'log'            => [self::HAS_MANY, 'PlayerLog', ['player_id' => 'id']],
-			'states'         => [self::HAS_MANY, 'PlayerState', ['player_id' => 'id']],
-			'player_items'   => [self::HAS_MANY, 'PlayerItems', 'player_id', 'order' => 'item_id'],
-			'items'          => [self::HAS_MANY, 'Item', ['item_id' => 'id'], 'through' => 'player_items'],
+			'user'               => [self::BELONGS_TO, 'User', 'user_id'],
+			'log'                => [self::HAS_MANY, 'PlayerLog', ['player_id' => 'id']],
+			'states'             => [self::HAS_MANY, 'PlayerState', ['player_id' => 'id']],
+			'player_items'       => [self::HAS_MANY, 'PlayerItems', 'player_id', 'order' => 'item_id'],
+			'items'              => [self::HAS_MANY, 'Item', ['item_id' => 'id'], 'through' => 'player_items'],
+			'player_achievments' => [self::HAS_MANY, 'PlayerAchievments', 'player_id', 'order' => 'achievment_id'],
+			'achievments'        => [self::HAS_MANY, 'Achievment', ['achievment_id' => 'id'], 'through' => 'player_achievments'],
 		];
 	}
 
@@ -73,6 +77,7 @@ class Player extends CActiveRecord {
 	protected function afterFind()
 	{
 		// Пересчитаем уровень персонажа
+		$this->__old_lvl = $this->lvl;
 		$this->lvl = Formulas::getPlayerLevelByExp($this->exp);
 
 		parent::afterFind();
@@ -85,8 +90,21 @@ class Player extends CActiveRecord {
 	public function beforeSave() {
 		if (parent::beforeSave()) {
 
+			// Обновим последнее действие
+			$this->last_action = date('Y-m-d H:i:s');
+
 			// Обновим уровень персонажа
 			$this->lvl = Formulas::getPlayerLevelByExp($this->exp);
+
+			// Уровень поменялся? Делаем запись в логе и проверяем достижение
+			if ($this->lvl != $this->__old_lvl) {
+				Funcs::logMessage(Yii::t('success', '__player__level_up', [
+					'{lvl}' => $this->lvl,
+				]), 'level');
+
+				// Проверяем достижение
+				$this->checkAchievment('lvl', $this->lvl);
+			}
 
 			return true;
 		}
@@ -381,7 +399,6 @@ class Player extends CActiveRecord {
 		return (
 			($item->required_lvl <= $this->lvl) // проверка на требуемый уровень
 		);
-		
 	}
 
 	/**
@@ -394,7 +411,36 @@ class Player extends CActiveRecord {
 			return false;
 		}
 		return $this->canUseItem($player_item->item);
-		
+	}
+
+	/**
+	 * Проверяет наличие достижения $alias с требуемым значением $val и при необходимости выдаёт
+	 * @alias string алиас достижения
+	 * @val string значение достижения
+	 */
+	function checkAchievment($alias, $val = null) {
+		$tested_achievments = Achievment::model()->findAllByAttributes(['alias' => $alias]);
+		foreach ($tested_achievments as $tested_achievment) {
+			if ($tested_achievment->val == $val) {
+				$has_achievment = false;
+				foreach ($this->achievments as $achievment) {
+					if (($tested_achievment->rank == $achievment->rank) && ($achievment->alias == $alias))
+						$has_achievment = true;
+				}
+				if (!$has_achievment) {
+					$pa = new PlayerAchievments;
+					$pa->player_id = $this->id;
+					$pa->achievment_id = $tested_achievment->id;
+					$pa->dt = date('Y-m-d H:i:s');
+					$pa->save();
+
+					Funcs::logMessage(Yii::t('success', '__player__new_achievment', [
+						'{title}' => $tested_achievment->title,
+						'{rank}' => $tested_achievment->rank,
+					]), 'achievments');
+				}
+			}
+		}
 	}
 
 }

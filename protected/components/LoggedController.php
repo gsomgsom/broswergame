@@ -9,7 +9,7 @@ class LoggedController extends CController {
 			$this->redirect('/');
 		}
 		$this->user = User::model()->findByPk(Yii::app()->user->id);
-		$this->user->save(); // чтобы видеть, кто онлайн
+		$this->user->player->save(); // чтобы видеть, кто онлайн
 
 		// Применяем ауры и заклятия
 		foreach ($this->user->player->states as $player_state) {

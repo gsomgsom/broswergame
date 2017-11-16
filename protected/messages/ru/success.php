@@ -32,6 +32,10 @@ return [
 	'__item_scroll_test__used_loot'                            => 'Вы сколдовали {item}, и тотчас получили: {loot}',
 	'__item_scroll_test__used_no_loot'                         => 'Вы сколдовали {item}, но ничего не получили.',
 
+	// Player
+	'__player__level_up'                                       => 'Трубы трубят, фейрверки сверкают! И всё потому что вы подросли до <img src="/assets/img/lvl16.png" title="уровень"> <strong>{lvl}</strong> <strong>уровня</strong>! Поздравляем!',
+	'__player__new_achievment'                                 => 'Вы получили новое достижение: <strong>{title}</strong>, ранг <strong>{rank}</strong>',
+
 	// player/UsersettingsController
 	'__usersettings_controller__email'                         => 'Новый адрес E-mail успешно сохранён.',
 

@@ -68,13 +68,16 @@ class WheelController extends LoggedController
 			$drop_html = '<img src="/assets/img/'.$itemEntry->img.'16.png" title="предмет"> <b>'.$itemEntry->name.'</b>'.$amountText.'';
 
 			// Списываем стоимость кручения
-			Yii::app()->getController()->user->player->nuts -= Yii::app()->params['location_wheel'];
-			Yii::app()->getController()->user->player->save();
+			$this->user->player->nuts -= Yii::app()->params['location_wheel'];
+			$this->user->player->save();
 
 			// Счётчик кручений для статистики
 			$this->user->player->setStateIntVal('location_wheel_roll_count',
 				$this->user->player->getStateIntVal('location_wheel_roll_count') + 1
 			);
+
+			// Проверяем достижение
+			$this->user->player->checkAchievment('wheel', $this->user->player->getStateIntVal('location_wheel_roll_count'));
 
 			Funcs::logMessage('Крутим колесо. Счастливая рука выкрутила приз: '.$drop_html, 'actions');
 		}

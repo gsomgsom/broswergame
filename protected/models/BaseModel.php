@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Модель "Item"
+ * Модель "BaseModel"
  *
  * @author Желнин Евгений <zhelneen@yandex.ru>
- * @description Предмет. Всё что связано с предметами и действиями над ним.
+ * @description Базовая модель для предметов и всего остального, что может иметь ауру.
  */
 
 class BaseModel extends CActiveRecord {
+	public $user = null;
 
 	/**
 	 * Эффект ауры

@@ -57,4 +57,14 @@ class PlayerLog extends CActiveRecord {
 		];
 	}
 
+	/**
+	 * После загрузки записи из БД
+	 */
+	protected function afterFind()
+	{
+		// Разворачиваем коды разметки в HTML
+		$this->html = Funcs::applyCodes($this->html);
+
+		parent::afterFind();
+	}
 }

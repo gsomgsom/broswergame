@@ -171,4 +171,37 @@ class Funcs {
 		$logEntry->save();
 	}
 
+	/**
+	 * Замена {кодов} разметки игры на HTML
+	 *
+	 * @param string Исходная строка
+	 * @return string Строка с HTML
+	 */
+	public static function applyCodes($s) {
+		$s = str_replace("{coins}", "<img src=\"/assets/img/coins16.png\" title=\"монеты\" alt=\"\"><span class=\"inv\">{coins}</span>", $s);
+		$s = str_replace("{nuts}", "<img src=\"/assets/img/nuts16.png\" title=\"жёлуди\" alt=\"\"><span class=\"inv\">{nuts}</span>", $s);
+		$s = str_replace("{mushrooms}", "<img src=\"/assets/img/mushrooms16.png\" title=\"волшебные грибы\" alt=\"\"><span class=\"inv\">{mushrooms}</span>", $s);
+		$s = str_replace("{exp}", "<img src=\"/assets/img/exp16.png\" title=\"опыт\" alt=\"\"><span class=\"inv\">{exp}</span>", $s);
+		$s = str_replace("{lvl}", "<img src=\"/assets/img/lvl16.png\" title=\"уровень\" alt=\"\"><span class=\"inv\">{lvl}</span>", $s);
+		$s = str_replace("{might}", "<img src=\"/assets/img/top16.png\" title=\"влияние\"><span class=\"inv\" alt=\"\">{might}</span>", $s);
+		$s = str_replace("{carma}", "<img src=\"/assets/img/yinyang16.png\" title=\"карма\"><span class=\"inv\" alt=\"\">{carma}</span>", $s);
+		$s = str_replace("{hp}", "<img src=\"/assets/img/hp16.png\" title=\"здоровье\"><span class=\"inv\" alt=\"\">{hp}</span>", $s);
+		$s = str_replace("{clock}", "<img src=\"/assets/img/clock16.png\" title=\"время\"><span class=\"inv\" alt=\"\">{clock}</span>", $s);
+		$s = str_replace("{achievment}", "<img src=\"/assets/img/achievment16.png\" title=\"достижение\" alt=\"\"><span class=\"inv\">{achievment}</span>", $s);
+		$s = str_replace("{leaves}", "<img src=\"/assets/img/leaves16.png\" title=\"листья\" alt=\"\"><span class=\"inv\">{leaves}</span>", $s);
+		$s = str_replace("{leaf1}", "<img src=\"/assets/img/leaf16.png\" title=\"зелёный лист\" alt=\"\"><span class=\"inv\">{leaf1}</span>", $s);
+		$s = str_replace("{leaf2}", "<img src=\"/assets/img/leaf_red16.png\" title=\"красный лист\" alt=\"\"><span class=\"inv\">{leaf2}</span>", $s);
+		$s = str_replace("{leaf3}", "<img src=\"/assets/img/leaf_gold16.png\" title=\"золотой лист\" alt=\"\"><span class=\"inv\">{leaf3}</span>", $s);
+		$s = str_replace("{leaf4}", "<img src=\"/assets/img/leaf_dead16.png\" title=\"мёртвый лист\" alt=\"\"><span class=\"inv\">{leaf4}</span>", $s);
+		if (!isset(Yii::app()->params['applyingCodes'])) {
+			Yii::app()->params['applyingCodes'] = true;
+			$items = Item::model()->findAll();
+			foreach ($items as $i) {
+				$s = str_replace("{item".$i->id."}", "<img src=\"/assets/img/".$i->img."16.png\" alt=\"\" title=\"".$i->name."\"><span class=\"inv\">{item".$i->id."}</span> <strong>".$i->name."</strong>", $s);
+			}
+			unset(Yii::app()->params['applyingCodes']);
+		}
+		return $s;
+	}
+
 }

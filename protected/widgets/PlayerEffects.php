@@ -12,7 +12,7 @@ class PlayerEffects extends CWidget {
 				$effect_entry['icon'] = $aura_class->auraIcon();
 				$effect_entry['type'] = 'aura';
 				$effect_entry['title'] = $aura_class->auraTitle();
-				$effect_entry['description'] = $aura_class->auraDescription();
+				$effect_entry['description'] = Funcs::applyCodes($aura_class->auraDescription());
 				$effect_entry['cooldown'] = strtotime($player_state->cooldown);
 				if ($effect_entry['title']) {
 					$data['effects'][] = $effect_entry;
@@ -25,7 +25,7 @@ class PlayerEffects extends CWidget {
 				$effect_entry['icon'] = $aura_class->auraIcon();
 				$effect_entry['type'] = 'spell';
 				$effect_entry['title'] = $aura_class->auraTitle();
-				$effect_entry['description'] = $aura_class->auraDescription();
+				$effect_entry['description'] = Funcs::applyCodes($aura_class->auraDescription());
 				$effect_entry['cooldown'] = strtotime($player_state->cooldown);
 				if ($effect_entry['title']) {
 					$data['effects'][] = $effect_entry;

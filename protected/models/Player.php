@@ -13,6 +13,7 @@ class Player extends CActiveRecord {
 	const GENDER_MALE              = 1;
 
 	private $__old_lvl;
+	public $bag_slots              = 30; // количество слотов в сумке
 
 	/**
 	 * Название таблицы в БД
@@ -439,6 +440,24 @@ class Player extends CActiveRecord {
 						'{rank}' => $tested_achievment->rank,
 					]), 'achievments');
 				}
+			}
+		}
+	}
+
+	/**
+	 * Применяет активные ауры игрока
+	 */
+	function applyAuras() {
+		foreach ($this->states as $player_state) {
+			if ($player_state->state_text == 'aura') {
+				$aura_class = new $player_state->alias;
+				$aura_class->user = $player_state->player->user;
+				$aura_class->auraEffect();
+			}
+			if (($player_state->state_text == 'spell') && (strtotime($player_state->cooldown) > time())) {
+				$aura_class = new $player_state->alias;
+				$aura_class->user = $player_state->player->user;
+				$aura_class->auraEffect();
 			}
 		}
 	}

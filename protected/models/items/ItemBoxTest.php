@@ -21,17 +21,17 @@ class ItemBoxTest extends Item {
 			$drop_html = [];
 			if (rand(0, 1)) {
 				$drop['coins'] = rand(3000 * $player_item->player->lvl, 5000 * $player_item->player->lvl);
-				$drop_html []= '<b>'.$drop['coins'].'</b> <img src="/assets/img/coins16.png" title="монеты"> <b>'.Funcs::declination($drop['coins'],'монета','монеты','монет').'</b>';
+				$drop_html []= '<b>'.$drop['coins'].'</b> {coins} <b>'.Funcs::declination($drop['coins'],'монета','монеты','монет').'</b>';
 				$player_item->player->coins += $drop['coins'];
 			}
 			if (rand(0, 1)) {
 				$drop['nuts'] = rand(1 * $player_item->player->lvl, 3 * $player_item->player->lvl);
-				$drop_html []= '<b>'.$drop['nuts'].'</b> <img src="/assets/img/nuts16.png" title="жёлуди"> <b>'.Funcs::declination($drop['nuts'],'жёлудь','жёлудя','желудей').'</b>';
+				$drop_html []= '<b>'.$drop['nuts'].'</b> {nuts} <b>'.Funcs::declination($drop['nuts'],'жёлудь','жёлудя','желудей').'</b>';
 				$player_item->player->nuts += $drop['nuts'];
 			}
 			if (!rand(0, 9)) {
 				$drop['mushrooms'] = rand(1, 2);
-				$drop_html []= '<b>'.$drop['mushrooms'].'</b> <img src="/assets/img/mushrooms16.png" title="волшебные грибы"> <b>'.Funcs::declination($drop['mushrooms'],'гриб','гриба','грибов').'</b>';
+				$drop_html []= '<b>'.$drop['mushrooms'].'</b> {mushrooms} <b>'.Funcs::declination($drop['mushrooms'],'гриб','гриба','грибов').'</b>';
 				$player_item->player->mushrooms += $drop['mushrooms'];
 			}
 			$player_item->player->save();
@@ -47,6 +47,47 @@ class ItemBoxTest extends Item {
 					$player_item->player->addItem($item['id'], $item['amount']);
 				}
 			}
+
+			// Игровое событие: Осень - листья падают?
+			if (Yii::app()->params['game_event_autumn_leaves']) {
+				if (rand(0, 2) == 0) { // 33%
+					$r = rand(0,3);
+
+					if ($r == 0) { // 25%
+						// Выдаём x1 предметов с id = 14 (Зелёный лист)
+						$item = ['id' => 14, 'amount' => 1];
+						$itemEntry = Item::model()->findByPk($item['id']);
+						$drop_html []= $itemEntry->getLogText(1);
+						$items []= $item;
+						$player_item->player->addItem($item['id'], $item['amount']);
+					}
+					elseif ($r == 1) { // 25%
+						// Выдаём x1 предметов с id = 15 (Красный лист)
+						$item = ['id' => 15, 'amount' => 1];
+						$itemEntry = Item::model()->findByPk($item['id']);
+						$drop_html []= $itemEntry->getLogText(1);
+						$items []= $item;
+						$player_item->player->addItem($item['id'], $item['amount']);
+					}
+					elseif ($r == 2) { // 25%
+						// Выдаём x1 предметов с id = 15 (Красный лист)
+						$item = ['id' => 16, 'amount' => 1];
+						$itemEntry = Item::model()->findByPk($item['id']);
+						$drop_html []= $itemEntry->getLogText(1);
+						$items []= $item;
+						$player_item->player->addItem($item['id'], $item['amount']);
+					}
+					else { // 25%
+						// Выдаём x1 предметов с id = 16 (Мёртвый лист)
+						$item = ['id' => 17, 'amount' => 1];
+						$itemEntry = Item::model()->findByPk($item['id']);
+						$drop_html []= $itemEntry->getLogText(1);
+						$items []= $item;
+						$player_item->player->addItem($item['id'], $item['amount']);
+					}
+				}
+			}
+
 			$drop['items'] = $items;
 
 			Yii::app()->user->setFlash('success', Yii::t('success', '__item_box_test__used'));

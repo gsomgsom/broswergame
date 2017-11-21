@@ -15,6 +15,7 @@ return [
 	'import' => [
 		'application.models.forms.*',
 		'application.models.items.*',
+		'application.models.game_events.*',
 		'application.models.*',
 		'application.controllers.*',
 		'application.components.*',
@@ -36,6 +37,9 @@ return [
 		'senderEmail'                          => 'noreply@zhelnin.perm.ru',
 		'senderUser'                           => 'noreply@zhelnin.perm.ru',
 		'senderPass'                           => 'udz76zYZ',
+
+		// Событие: Осень
+		'game_event_autumn_leaves'             => false,              // листья падают
 
 		// Игрок
 		'player_exp_rate'                      => 1,                 // множитель опыта игрока
@@ -65,7 +69,6 @@ return [
 		'news',
 		'mail',
 		'forum',
-		'chat',
 		'world',
 	],
 	'components' => [

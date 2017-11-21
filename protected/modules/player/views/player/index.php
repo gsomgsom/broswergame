@@ -136,10 +136,12 @@
 </div>
 <h4>Рюкзак</h4>
 <div class="player-items">
+	<? $used_slots = 0; ?>
 	<? foreach ($this->user->player->player_items as $player_item): ?>
 		<? if (!$player_item->equipped): ?>
+			<? $used_slots++ ?>
 			<div class="item-entry">
-				<div class="border rounded <?= $player_item->item->class ?>" style="background-color: <?= Item::getQualityColor($player_item->quality) ?>;" data-toggle="tooltip" data-html="true" title="<b><?= $player_item->item->name ?></b><br><i><small><?= $player_item->item->description ?></small></i>">
+				<div class="border rounded <?= $player_item->item->class ?>" style="background-color: <?= Item::getQualityColor($player_item->quality) ?>;" data-toggle="tooltip" data-html="true" title="<b><?= $player_item->item->name ?></b><br><i><small><?= str_replace('"',"'",$player_item->item->description) ?></small></i>">
 					<img src="/assets/img/<?= $player_item->item->img ?>64.png">
 					<? if ($player_item->item->required_lvl > 1): ?>
 						<div class="counter rq_lvl <? if (!$this->user->player->canUsePlayerItem($player_item)): ?> err<? endif ?>" title="требует уровень">
@@ -170,12 +172,14 @@
 			</div>
 		<? endif ?>
 	<? endforeach ?>
-	<div class="item-entry">
-		<div class="border rounded border-dark" style="background-color: #bbb;">
-			<img src="/assets/img/empty64.png">
+	<? for ($i = $this->user->player->bag_slots - $used_slots; $i < $this->user->player->bag_slots; $i++): ?>
+		<div class="item-entry">
+			<div class="border rounded border-dark" style="background-color: #bbb;">
+				<img src="/assets/img/empty64.png">
+			</div>
+			<div class="item-action text-center">
+				&nbsp;
+			</div>
 		</div>
-		<div class="item-action text-center">
-			&nbsp;
-		</div>
-	</div>
+	<? endfor ?>
 </div>

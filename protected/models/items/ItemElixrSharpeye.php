@@ -30,7 +30,7 @@ class ItemElixrSharpeye extends Item {
 	 * @return string
 	 */
 	public function auraDescription() {
-		return '<b>Сокращение</b> <img class="i-clock" src="/assets/img/clock16.png" title="таймер"> времени поиска желудей <b>вдвое</b>';
+		return '<b>Сокращение</b> {clock} времени поиска желудей <b>вдвое</b>';
 	}
 
 	/**

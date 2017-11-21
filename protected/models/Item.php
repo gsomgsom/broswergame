@@ -114,6 +114,18 @@ class Item extends BaseModel {
 	}
 
 	/**
+	 * После загрузки записи из БД
+	 */
+	protected function afterFind()
+	{
+		// Разворачиваем коды разметки в HTML
+		$this->description = Funcs::applyCodes($this->description);
+		$this->notice      = Funcs::applyCodes($this->notice);
+
+		parent::afterFind();
+	}
+
+	/**
 	 * Действие перед сохранением в БД
 	 * @return bool
 	 */
@@ -212,7 +224,7 @@ class Item extends BaseModel {
 			}
 			else {
 				Yii::app()->user->setFlash('error', Yii::t('error', '__item__used_need_amount', [
-					'{amount}' => $player_item->item->use_stack,
+					'{item}' => $player_item->item->getLogText($player_item->item->use_stack),
 				]));
 				return false;
 			}

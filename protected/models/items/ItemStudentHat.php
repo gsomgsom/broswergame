@@ -30,9 +30,12 @@ class ItemStudentHat extends ItemEquip {
 	 * @return string
 	 */
 	public function auraDescription() {
-		foreach (Yii::app()->getController()->user->player->states as $player_state) {
+		if (!$this->user)
+			$this->user = Yii::app()->getController()->user;
+
+		foreach ($this->user->player->states as $player_state) {
 			if (($player_state->state_text == 'aura') && ($player_state->alias == 'ItemStudentMantle')) {
-				return '<b>Удвоение</b> всего получаемого <img src="/assets/img/exp16.png" title="опыт"> <b>опыта</b>';
+				return '<b>Удвоение</b> всего получаемого {exp} <b>опыта</b>';
 			}
 		}
 		return false;
@@ -42,7 +45,10 @@ class ItemStudentHat extends ItemEquip {
 	 * Эффект ауры
 	 */
 	public function auraEffect() {
-		foreach (Yii::app()->getController()->user->player->states as $player_state) {
+		if (!$this->user)
+			$this->user = Yii::app()->getController()->user;
+
+		foreach ($this->user->player->states as $player_state) {
 			if (($player_state->state_text == 'aura') && ($player_state->alias == 'ItemStudentMantle')) {
 				Yii::app()->params['player_exp_rate'] = Yii::app()->params['player_exp_rate'] * 2;
 			}

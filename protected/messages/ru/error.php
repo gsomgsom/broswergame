@@ -15,7 +15,7 @@ return [
 	'__player__add_item_no_free_space'                         => 'Недостаточно места в рюкзаке при создании предмета',
 
 	// Item
-	'__item__used_need_amount'                                 => 'Маловато будет. Требуется {amount} шт.',
+	'__item__used_need_amount'                                 => 'Маловато будет. Требуется {item}',
 	'__item__used_need_lvl'                                    => 'Ещё рости и рости...',
 
 	// player/ItemController

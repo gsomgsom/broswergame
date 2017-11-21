@@ -57,6 +57,14 @@ a {
 	top: 2px;
 	text-shadow: #000 1px 1px;
 }
+.inv {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	font-size: 1px;
+	position: absolute;
+	z-index: -1;
+	width: 1px;
+}
 .player-items [class^=border] {
 	display: inline-block;
 	width: 66px;
@@ -124,6 +132,14 @@ a {
 .nomargin {
 	margin: 0;
 }
+
+
+/*==========Chat==========*/
+.chat-online {
+	background: #efa;
+	margin: 10px;
+}
+/*========Chat end========*/
 
 
 /*==========Forum=========*/

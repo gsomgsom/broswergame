@@ -108,9 +108,11 @@ class Player extends CActiveRecord {
 				$this->sta = $this->lvl;
 				$this->int = $this->lvl;
 
-				Funcs::logMessage(Yii::t('success', '__player__level_up', [
-					'{lvl}' => $this->lvl,
-				]), 'level');
+				if ($this->id) {
+					Funcs::logMessage(Yii::t('success', '__player__level_up', [
+						'{lvl}' => $this->lvl,
+					]), 'level', $this->id);
+				}
 
 				// Проверяем достижение
 				$this->checkAchievment('lvl', $this->lvl);

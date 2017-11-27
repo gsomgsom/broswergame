@@ -79,6 +79,7 @@ class Player extends CActiveRecord {
 	{
 		// Пересчитаем уровень персонажа
 		$this->__old_lvl = $this->lvl;
+		$this->hp = Formulas::getMaxHP($this);
 		$this->lvl = Formulas::getPlayerLevelByExp($this->exp);
 
 		parent::afterFind();
@@ -99,6 +100,14 @@ class Player extends CActiveRecord {
 
 			// Уровень поменялся? Делаем запись в логе и проверяем достижение
 			if ($this->lvl != $this->__old_lvl) {
+
+				// Пересчитвывем базовые статы
+				$this->str = $this->lvl;
+				$this->def = $this->lvl;
+				$this->dex = $this->lvl;
+				$this->sta = $this->lvl;
+				$this->int = $this->lvl;
+
 				Funcs::logMessage(Yii::t('success', '__player__level_up', [
 					'{lvl}' => $this->lvl,
 				]), 'level');
@@ -460,6 +469,51 @@ class Player extends CActiveRecord {
 				$aura_class->auraEffect();
 			}
 		}
+	}
+
+	/**
+	 * Подсчитывает str игрока с баффами и предметами
+	 */
+	function countStr() {
+		$str = $this->str;
+		// @TODO - предметы, баффы
+		return $str;
+	}
+
+	/**
+	 * Подсчитывает def игрока с баффами и предметами
+	 */
+	function countDef() {
+		$def = $this->def;
+		// @TODO - предметы, баффы
+		return $def;
+	}
+
+	/**
+	 * Подсчитывает dex игрока с баффами и предметами
+	 */
+	function countDex() {
+		$dex = $this->dex;
+		// @TODO - предметы, баффы
+		return $dex;
+	}
+
+	/**
+	 * Подсчитывает sta игрока с баффами и предметами
+	 */
+	function countSta() {
+		$sta = $this->sta;
+		// @TODO - предметы, баффы
+		return $sta;
+	}
+
+	/**
+	 * Подсчитывает int игрока с баффами и предметами
+	 */
+	function countInt() {
+		$int = $this->int;
+		// @TODO - предметы, баффы
+		return $int;
 	}
 
 }

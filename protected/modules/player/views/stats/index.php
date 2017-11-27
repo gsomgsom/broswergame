@@ -28,6 +28,21 @@
 			</thead>
 			<tbody>
 			<tr>
+				<th>Проведено боёв:</th>
+				<td><?= $this->user->player->getStateIntVal('world_battle_count') ?></td>
+				<td>&mdash;</td>
+			</tr>
+			<tr>
+				<th>Побед в боях:</th>
+				<td><?= $this->user->player->getStateIntVal('world_battle_win_count') ?></td>
+				<td>&mdash;</td>
+			</tr>
+			<tr>
+				<th>Поражений в боях:</th>
+				<td><?= $this->user->player->getStateIntVal('world_battle_lose_count') ?></td>
+				<td>&mdash;</td>
+			</tr>
+			<tr>
 				<th>Кручений колеса:</th>
 				<td><?= $this->user->player->getStateIntVal('location_wheel_roll_count') ?></td>
 				<td>&mdash;</td>

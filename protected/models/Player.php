@@ -329,9 +329,10 @@ class Player extends CActiveRecord {
 	 * Добавляет $amount штук предмета с id = $item_id в рюкзак
 	 * @item_id integer ID предмета
 	 * @amount integer Количество штук
+	 * @amount integer Вариант
 	 * @return bool Результат добавления. Должно быть true если всё прошло удачно
 	 */
-	public function addItem($item_id, $amount = 1) {
+	public function addItem($item_id, $amount = 1, $variant = 0) {
 		$item = Item::model()->findByPk($item_id);
 		if (!empty($item)) {
 			if ($item->bag_limit) {
@@ -361,6 +362,15 @@ class Player extends CActiveRecord {
 				$player_items->player_id = $this->id;
 				$player_items->item_id = $item_id;
 				$player_items->quality = $item->quality;
+				// если у предмета указаны варианты
+				if (strlen(trim($item->variants))) {
+					if (!$variant) { // и не указан спеицальный, то сгенерировать случайный
+						$variants = explode(',', $item->variants);
+						shuffle($variants);
+						$variant = array_shift($variants);
+					}
+					$player_items->variant = $variant;
+				}
 				$player_items->amount = 1;
 				return $player_items->save();
 			}
@@ -478,7 +488,29 @@ class Player extends CActiveRecord {
 	 */
 	function countStr() {
 		$str = $this->str;
-		// @TODO - предметы, баффы
+
+		// надетые предметы
+		foreach ($this->player_items as $player_item) {
+			if ($player_item->equipped) {
+
+				// статы
+				if ($player_item->item->str) {
+					$str += $player_item->item->str;
+				}
+
+				// варианты
+				if ($player_item->variant) {
+					$variant = ItemVariant::model()->findByPk($player_item->variant);
+					if (!empty($variant)) {
+						if ($variant->str)
+							$str += $variant->str;
+					}
+				}
+
+			}
+		}
+
+		// @TODO - баффы
 		return $str;
 	}
 
@@ -487,7 +519,29 @@ class Player extends CActiveRecord {
 	 */
 	function countDef() {
 		$def = $this->def;
-		// @TODO - предметы, баффы
+
+		// надетые предметы
+		foreach ($this->player_items as $player_item) {
+			if ($player_item->equipped) {
+
+				// статы
+				if ($player_item->item->def) {
+					$def += $player_item->item->def;
+				}
+
+				// варианты
+				if ($player_item->variant) {
+					$variant = ItemVariant::model()->findByPk($player_item->variant);
+					if (!empty($variant)) {
+						if ($variant->def)
+							$def += $variant->def;
+					}
+				}
+
+			}
+		}
+
+		// @TODO - баффы
 		return $def;
 	}
 
@@ -496,7 +550,29 @@ class Player extends CActiveRecord {
 	 */
 	function countDex() {
 		$dex = $this->dex;
-		// @TODO - предметы, баффы
+
+		// надетые предметы
+		foreach ($this->player_items as $player_item) {
+			if ($player_item->equipped) {
+
+				// статы
+				if ($player_item->item->dex) {
+					$dex += $player_item->item->dex;
+				}
+
+				// варианты
+				if ($player_item->variant) {
+					$variant = ItemVariant::model()->findByPk($player_item->variant);
+					if (!empty($variant)) {
+						if ($variant->dex)
+							$dex += $variant->dex;
+					}
+				}
+
+			}
+		}
+
+		// @TODO - баффы
 		return $dex;
 	}
 
@@ -505,7 +581,29 @@ class Player extends CActiveRecord {
 	 */
 	function countSta() {
 		$sta = $this->sta;
-		// @TODO - предметы, баффы
+
+		// надетые предметы
+		foreach ($this->player_items as $player_item) {
+			if ($player_item->equipped) {
+
+				// статы
+				if ($player_item->item->sta) {
+					$sta += $player_item->item->sta;
+				}
+
+				// варианты
+				if ($player_item->variant) {
+					$variant = ItemVariant::model()->findByPk($player_item->variant);
+					if (!empty($variant)) {
+						if ($variant->sta)
+							$sta += $variant->sta;
+					}
+				}
+
+			}
+		}
+
+		// @TODO - баффы
 		return $sta;
 	}
 
@@ -514,7 +612,29 @@ class Player extends CActiveRecord {
 	 */
 	function countInt() {
 		$int = $this->int;
-		// @TODO - предметы, баффы
+
+		// надетые предметы
+		foreach ($this->player_items as $player_item) {
+			if ($player_item->equipped) {
+
+				// статы
+				if ($player_item->item->int) {
+					$int += $player_item->item->int;
+				}
+
+				// варианты
+				if ($player_item->variant) {
+					$variant = ItemVariant::model()->findByPk($player_item->variant);
+					if (!empty($variant)) {
+						if ($variant->int)
+							$int += $variant->int;
+					}
+				}
+
+			}
+		}
+
+		// @TODO - баффы
 		return $int;
 	}
 

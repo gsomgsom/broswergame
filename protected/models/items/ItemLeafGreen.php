@@ -23,7 +23,7 @@ class ItemLeafGreen extends Item {
 			$drop_html = [];
 
 			// Выдаём 5% опыта до уровня
-			$amountExp = ceil($player_item->player->expToLevelMax() * 0.05);
+			$amountExp = ceil($player_item->player->expToLevelMax() * 0.05) * Yii::app()->params['player_exp_rate'];
 			$player_item->player->exp = $player_item->player->exp + $amountExp;
 			$player_item->player->save();
 			$drop_html []= "{exp} ".$amountExp;

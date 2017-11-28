@@ -20,6 +20,7 @@ class BattleController extends LoggedController
 		$this->render('find', $data);
 	}
 
+	// Бой с игроком
 	public function actionAttack() {
 		Yii::app()->params['pageTitle'] = 'Лог боя';
 
@@ -79,8 +80,8 @@ class BattleController extends LoggedController
 			$log_html_att = "Вы напали на <b>".$playerDef->nickname."</b> и <b style='color: green;'>победили</b>.<br>\n";
 			$log_html_def = "На вас напал <b>".$playerAtt->nickname."</b> и <b style='color: red;'>победил</b>.<br>\n";
 
-			// 2% exp
-			$amountExp = ceil($playerAtt->expToLevelMax() * 0.02);
+			// 2 exp
+			$amountExp = 2 * Yii::app()->params['player_exp_rate']; // если надо 2%, то это будет: ceil($playerAtt->expToLevelMax() * 0.02);
 			$playerAtt->exp = $playerAtt->exp + $amountExp;
 			$playerAtt->save();
 
@@ -111,6 +112,144 @@ class BattleController extends LoggedController
 		// Логи и награждение
 		Funcs::logMessage($log_html_att, 'war', $playerAtt->id);
 		Funcs::logMessage($log_html_def, 'war', $playerDef->id);
+
+		$data = [
+			'html' => Funcs::applyCodes($html),
+		];
+
+		$this->render('attack', $data);
+	}
+
+	// Бой с мобом
+	public function actionBot() {
+		Yii::app()->params['pageTitle'] = 'Лог боя';
+
+		$html = ''; // пока бои в виде HTML, без логов
+
+		$playerAtt = $this->user->player;
+
+		// Создаём бота со статами 90-110% от статов игрока
+		$playerDef = new Player;
+		$playerDef->lvl = $playerAtt->lvl;
+		$playerDef->exp = $playerAtt->exp;
+		$playerDef->nickname = 'Неразумная тварь';
+		$str = $playerAtt->countStr();
+		$minStr = ($str / 100) * 90;
+		$maxStr = ($str / 100) * 110;
+		$playerDef->str = rand(round($minStr), round($maxStr));
+		$def = $playerAtt->countDef();
+		$minDef = ($def / 100) * 90;
+		$maxDef = ($def / 100) * 110;
+		$playerDef->def = rand(round($minDef), round($maxDef));
+		$dex = $playerAtt->countDex();
+		$minDex = ($dex / 100) * 90;
+		$maxDex = ($dex / 100) * 110;
+		$playerDef->dex = rand(round($minDex), round($maxDex));
+		$sta = $playerAtt->countSta();
+		$minSta = ($sta / 100) * 90;
+		$maxSta = ($sta / 100) * 110;
+		$playerDef->sta = rand(round($minSta), round($maxSta));
+		$int = $playerAtt->countInt();
+		$minInt = ($int / 100) * 90;
+		$maxInt = ($int / 100) * 110;
+		$playerDef->int = rand(round($minInt), round($maxInt));
+
+		$damageAtt = 0;
+		$damageDef = 0;
+
+		for($n=1; $n<=10; $n++) {
+			$logStr = '';
+
+			$html .= "<b>Раунд ".$n."</b><br>\n";
+
+			$turnAtt = Formulas::countBattleTurn($playerAtt, $playerDef);
+			$logStr .= $turnAtt['log'];
+			$damageAtt += $turnAtt['damage'];
+
+			$turnDef = Formulas::countBattleTurn($playerDef, $playerAtt);
+			$logStr .= $turnDef['log'];
+			$damageDef += $turnDef['damage'];
+
+			$html .= $logStr;
+
+			$html .= "<br>\n";
+		}
+
+		$html .= "<hr>\n";
+
+		// Счётчик боёв для статистики
+		$playerAtt->setStateIntVal('world_battle_count',
+			$playerAtt->getStateIntVal('world_battle_count') + 1
+		);
+		$playerDef->setStateIntVal('world_battle_count',
+			$playerDef->getStateIntVal('world_battle_count') + 1
+		);
+
+		$html .= "Счёт: <b>{$damageAtt}<b> : <b>{$damageDef}</b><br>\n";
+		if ($damageAtt > $damageDef) {
+			// Счётчик победных боёв для статистики
+			$playerAtt->setStateIntVal('world_battle_win_count',
+				$playerAtt->getStateIntVal('world_battle_win_count') + 1
+			);
+			// Счётчик проигрышных боёв для статистики
+			$playerDef->setStateIntVal('world_battle_lose_count',
+				$playerDef->getStateIntVal('world_battle_lose_count') + 1
+			);
+
+			$html .= "Победил: <b>".$playerAtt->nickname."</b><br>\n";
+			$log_html_att = "Вы напали на <b>".$playerDef->nickname."</b> и <b style='color: green;'>победили</b>.<br>\n";
+			$log_html_def = "На вас напал <b>".$playerAtt->nickname."</b> и <b style='color: red;'>победил</b>.<br>\n";
+
+			// 1 exp
+			$amountExp = 1 * Yii::app()->params['player_exp_rate']; // если надо 2%, то это будет: ceil($playerAtt->expToLevelMax() * 0.02);
+			$playerAtt->exp = $playerAtt->exp + $amountExp;
+			$playerAtt->save();
+
+			$log_html_att .= "Ваша награда: <b>{$amountExp}</b> {exp}";
+
+			$drop_html = [];
+			if ((rand(0, 100) / 100) < 0.05) { // 5% шанс дропа ветоши
+				// Выдаём предмет с id = 18 (Ветошь новобранца)
+				$itemEntry = Item::model()->findByPk(18);
+				$drop_html []= $itemEntry->getLogText(1);
+				$playerAtt->addItem(18, 1);
+			}
+			if ((rand(0, 100) / 100) < 0.10) { // 10% шанс дропа красного зелья
+				// Выдаём предмет с id = 2 (Красное зелье)
+				$itemEntry = Item::model()->findByPk(2);
+				$drop_html []= $itemEntry->getLogText(1);
+				$playerAtt->addItem(2, 1);
+			}
+			$drop_info = '';
+			if (sizeof($drop_html))
+				$drop_info = '<br>Обшаривая тварь, вы наткнулись на: '.implode(', ', $drop_html);
+			$log_html_att .= $drop_info;
+
+			$html .= "В награду победитель получает: <b>{$amountExp}</b> {exp}";
+			$html .= $drop_info;
+		}
+		elseif ($damageAtt < $damageDef) {
+			// Счётчик проигрышных боёв для статистики
+			$playerAtt->setStateIntVal('world_battle_lose_count',
+				$playerAtt->getStateIntVal('world_battle_lose_count') + 1
+			);
+			// Счётчик победных боёв для статистики
+			$playerDef->setStateIntVal('world_battle_win_count',
+				$playerDef->getStateIntVal('world_battle_win_count') + 1
+			);
+
+			$html .= "Победил: <b>".$playerDef->nickname."</b><br>\n";
+			$log_html_att = "Вы напали на <b>".$playerDef->nickname."</b> и <b style='color: red;'>проиграли</b>.<br>\n";
+			$log_html_def = "На вас напал <b>".$playerAtt->nickname."</b> и <b style='color: green;'>проиграл</b>.<br>\n";
+		}
+		else {
+			$html .= "<b>Ничья</b><br>\n";
+			$log_html_att = "Вы напали на <b>".$playerDef->nickname."</b> и <b>никто</b> не победил.<br>\n";
+			$log_html_def = "На вас напал <b>".$playerAtt->nickname."</b> и <b>никто</b> не победил.<br>\n";
+		}
+
+		// Логи и награждение
+		Funcs::logMessage($log_html_att, 'war', $playerAtt->id);
 
 		$data = [
 			'html' => Funcs::applyCodes($html),

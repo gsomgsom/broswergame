@@ -18,6 +18,7 @@
 </ul>
 <div class="row">
 	<div class="col-md-12">
-		<p>@TODO</p>
+		<p>Дружелюбные муравьи трудятся, полируя кнопки в этом разделе. А пока - минутка веселья!</p>
+		<p><iframe width="560" height="315" src="https://www.youtube.com/embed/QtnM-igAaTE" frameborder="0" allowfullscreen></iframe></p>
 	</div>
 </div>

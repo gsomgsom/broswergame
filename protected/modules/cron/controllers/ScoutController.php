@@ -33,7 +33,7 @@ class ScoutController extends CController
 				$stateEntry->player->coins += $coins;
 				$stateEntry->player->save();
 
-				if (rand(0, 1) < Yii::app()->params['location_scout_chest_chance']) { // шанс клада
+				if ((rand(0, 100) / 100) < Yii::app()->params['location_scout_chest_chance']) { // шанс клада
 					// Выдаём предмет с id = 1 (Подарок альфа-тестеру)
 					$itemEntry = Item::model()->findByPk(1);
 					$drop_html []= $itemEntry->getLogText(1);

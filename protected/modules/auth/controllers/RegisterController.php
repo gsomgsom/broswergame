@@ -69,7 +69,8 @@ class RegisterController extends CController
 				$resultPlayerSave = $player->save();
 				if ($resultPlayerSave) {
 					// Ништяки за регистрацию
-					$player->addItem(1, 1000);
+					//$player->addItem(1, 1000);
+					$player->coins += 1000;
 
 					// Шлём письмо
 					MailMan::send(

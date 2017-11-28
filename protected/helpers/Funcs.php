@@ -188,6 +188,11 @@ class Funcs {
 		$s = str_replace("{hp}", "<img src=\"/assets/img/hp16.png\" title=\"здоровье\"><span class=\"inv\" alt=\"\">{hp}</span>", $s);
 		$s = str_replace("{clock}", "<img src=\"/assets/img/clock16.png\" title=\"время\"><span class=\"inv\" alt=\"\">{clock}</span>", $s);
 		$s = str_replace("{achievment}", "<img src=\"/assets/img/achievment16.png\" title=\"достижение\" alt=\"\"><span class=\"inv\">{achievment}</span>", $s);
+		$s = str_replace("{str}", "<img src=\"/assets/img/str16.png\" title=\"сила\" alt=\"\"><span class=\"inv\">{str}</span>", $s);
+		$s = str_replace("{def}", "<img src=\"/assets/img/def16.png\" title=\"защита\" alt=\"\"><span class=\"inv\">{def}</span>", $s);
+		$s = str_replace("{dex}", "<img src=\"/assets/img/agi16.png\" title=\"ловкость\" alt=\"\"><span class=\"inv\">{dex}</span>", $s);
+		$s = str_replace("{sta}", "<img src=\"/assets/img/vit16.png\" title=\"стойкость\" alt=\"\"><span class=\"inv\">{sta}</span>", $s);
+		$s = str_replace("{int}", "<img src=\"/assets/img/int16.png\" title=\"интеллект\" alt=\"\"><span class=\"inv\">{int}</span>", $s);
 		$s = str_replace("{leaves}", "<img src=\"/assets/img/leaves16.png\" title=\"листья\" alt=\"\"><span class=\"inv\">{leaves}</span>", $s);
 		$s = str_replace("{leaf1}", "<img src=\"/assets/img/leaf16.png\" title=\"зелёный лист\" alt=\"\"><span class=\"inv\">{leaf1}</span>", $s);
 		$s = str_replace("{leaf2}", "<img src=\"/assets/img/leaf_red16.png\" title=\"красный лист\" alt=\"\"><span class=\"inv\">{leaf2}</span>", $s);

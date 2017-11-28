@@ -69,6 +69,11 @@ class Item extends BaseModel {
 			['variant', 'safe'],				// вариант предмета (обычно null)
 			['nosell', 'safe'],					// предмет не подлежит продаже
 			['quality', 'safe'],				// качество предмета по-умолчанию
+			['str', 'safe'],					// бонус к силе
+			['def', 'safe'],					// бонус к защите
+			['dex', 'safe'],					// бонус к ловкости
+			['sta', 'safe'],					// бонус к стойкости
+			['int', 'safe'],					// бонус к интеллект
 			['price_sell_coins', 'safe'],		// цена продажи в магазин, монеты
 			['price_sell_nuts', 'safe'],		// цена продажи в магазин, жёлуди
 			['price_sell_mushrooms', 'safe'],	// цена продажи в магазин, грибы

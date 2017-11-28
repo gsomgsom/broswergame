@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Модель "LogType"
+ * Модель "ItemVariant"
  *
  * @author Желнин Евгений <zhelneen@yandex.ru>
- * @description Справочник типов записей в журнале.
+ * @description Справочник вариантов предмета.
  */
 
-class LogType extends CActiveRecord {
+class ItemVariant extends CActiveRecord {
 
 	/**
 	 * Название таблицы в БД
 	 * @return string
 	 */
 	public function tableName() {
-		return '{{log_types}}';
+		return '{{item_variants}}';
 	}
 
 	/**
@@ -23,7 +23,7 @@ class LogType extends CActiveRecord {
 	 */
 	public function rules() {
 		return [
-			['alias, title, visible', 'safe'],
+			['title, effect, class, srt, def, dex, sta, int, visible', 'safe'],
 		];
 	}
 

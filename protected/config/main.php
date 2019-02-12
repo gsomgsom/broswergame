@@ -39,7 +39,7 @@ return [
 		'senderPass'                           => 'udz76zYZ',
 
 		// Событие: Осень
-		'game_event_autumn_leaves'             => false,              // листья падают
+		'game_event_autumn_leaves'             => true,              // листья падают
 
 		// Игрок
 		'player_exp_rate'                      => 1,                 // множитель опыта игрока

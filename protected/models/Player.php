@@ -22,7 +22,6 @@ class Player extends CActiveRecord {
 	public function tableName() {
 		return '{{players}}';
 	}
-
 	/**
 	 * Правила валидации
 	 * @return array
@@ -79,7 +78,7 @@ class Player extends CActiveRecord {
 	{
 		// Пересчитаем уровень персонажа
 		$this->__old_lvl = $this->lvl;
-		$this->hp = Formulas::getMaxHP($this);
+		//$this->hp = Formulas::getMaxHP($this);
 		$this->lvl = Formulas::getPlayerLevelByExp($this->exp);
 
 		parent::afterFind();

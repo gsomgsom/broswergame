@@ -62,7 +62,7 @@ class Formulas {
 	 * @return double шанс уворота
 	 */
 	public static function getEvadeChance($att, $def) {
-		$evadeChance = (2.7 * $att->lvl * $att->countDex() - 2.7 * $def->lvl * $def->countDex()) / (300 * $def->lvl);
+		$evadeChance = ( max( $att->countDex(), $def->countDex() ) - ( $att->countDex() - $def->countDex() ) ) * 0.01;
 		$evadeChance = $evadeChance < 0.05 ? 0.05 : $evadeChance;
 		$evadeChance = $evadeChance > 0.95 ? 0.95 : $evadeChance;
 		return $evadeChance;
@@ -75,7 +75,7 @@ class Formulas {
 	 * @return double шанс критического удара
 	 */
 	public static function getCritChance($att, $def) {
-		$critChance = (2.7 * $att->lvl * $att->countInt() - 2.7 * $def->lvl * $def->countInt()) / (300 * $def->lvl);
+		$critChance = ( max( $att->countInt(), $def->countInt() ) - ( $att->countInt() - $def->countInt() ) ) * 0.01;
 		$critChance = $critChance < 0.05 ? 0.05 : $critChance;
 		$critChance = $critChance > 0.95 ? 0.95 : $critChance;
 		return $critChance;
@@ -88,9 +88,9 @@ class Formulas {
 	 * @return double размер максимального урона
 	 */
 	public static function getMaxDamage($att, $def) {
-		$maxDamage = (0.5 * $att->lvl * $att->countStr() - 0.4 * $def->lvl * $def->countDef());
-		$minDmg = (1 * $att->lvl);
-		$maxDamage = $maxDamage < $minDmg ? $minDmg : $maxDamage;
+		$maxDamage = ( max( $att->countStr(), $def->countDef() ) - ( $att->countStr() - $def->countDef() ) ) * 0.01;
+		$minDamage = (1 * $att->lvl);
+		$maxDamage = max( $minDamage, $maxDamage );
 		return $maxDamage;
 	}
 
@@ -112,7 +112,7 @@ class Formulas {
 	 * @return array
 	 */
 	public static function countBattleTurn($player1, $player2) {
-		$player1_dmg = round(Formulas::getMaxDamage($player1, $player2) * (rand(50, 100) / 100));
+		$player1_dmg = round(Formulas::getMaxDamage($player1, $player2) * (rand(75, 100) / 100));
 		$player2_evade = (rand(0, 100) / 100) < Formulas::getEvadeChance($player2, $player1);
 		$player1_crit = (rand(0, 100) / 100) < Formulas::getCritChance($player1, $player2);
 		$logStr = "";

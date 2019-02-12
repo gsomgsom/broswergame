@@ -15,7 +15,7 @@ class ItemPotionRed extends Item {
 	 */
 	public function useItem($player_item, $amount) {
 		if (parent::useItem($player_item, $amount)) {
-			$player_item->player->hp = 100; // @TODO - должно восстанавливать 100% hp
+			$player_item->player->hp = Formulas::getMaxHP( $player_item->player );
 			$player_item->player->save();
 
 			Yii::app()->user->setFlash('error', null);

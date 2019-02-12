@@ -63,12 +63,23 @@
 					<div class="row">
 						<div class="col-5 text-center">
 							<div class="progress">
-								<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%; height: 22px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+								<div class="progress-bar progress-bar-striped <?
+										$hpPercent = ceil(($this->user->player->hp / Formulas::getMaxHP($this->user->player)) * 100);
+										if ($hpPercent > 75) {
+											echo "bg-success";
+										}
+										elseif ($hpPercent > 35) {
+											echo "bg-warning";
+										}
+										else {
+											echo "bg-danger";
+										}
+									?>" role="progressbar" style="width: <?= $hpPercent ?>%; height: 22px;" aria-valuenow="<?= $this->user->player->hp ?>" aria-valuemin="0" aria-valuemax="<?= Formulas::getMaxHP($this->user->player) ?>">
 									&nbsp;
 								</div>
 							</div>
 							<div class="progress-text">
-								<img src="/assets/img/hp16.png" title="здоровье"> <strong>100%</strong>
+								<img src="/assets/img/hp16.png" title="здоровье"> <strong><?= $this->user->player->hp ?> / <?= Formulas::getMaxHP($this->user->player) ?></strong>
 							</div>
 						</div>
 						<div class="col-2 text-center" style="margin-top: -3px;">

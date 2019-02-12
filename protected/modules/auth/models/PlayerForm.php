@@ -20,7 +20,7 @@ class PlayerForm extends CFormModel {
 			['nickname', 'required'],
 			['nickname', 'length', 'max' => 16],
 			['nickname', 'length', 'min' => 3],
-			['nickname', 'match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ0-9_])+$/', 'message' => 'Ник может состоять из букв, цифр и знака подчёркивания.'],
+			//['nickname', 'match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ0-9_])+$/', 'message' => 'Ник может состоять из букв, цифр и знака подчёркивания.'],
 			['nickname', 'unique', 'className'=>'Player', 'attributeName'=>'nickname'],
 		];
 	}

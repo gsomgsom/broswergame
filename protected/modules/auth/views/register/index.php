@@ -52,7 +52,7 @@
 							<?= $form->radioButtonList($modelPlayer, 'gender', ['1'=>'Мужской', '0'=>'Женский'], ['separator'=>' ']); ?>
 							<?= $form->error($modelUser, 'licenseAccepted'); ?><br>
 							<?= $form->checkBox($modelUser, 'licenseAccepted'); ?>
-							<?= $form->label($modelUser, 'Подтвержадю согласие с правилами', ['for' => 'UserForm_licenseAccepted']); ?>
+							<?= $form->label($modelUser, 'Подтверждаю согласие с правилами', ['for' => 'UserForm_licenseAccepted']); ?>
 						</div>
 					</div>
 					<div class="form-group text-center m-t-20">

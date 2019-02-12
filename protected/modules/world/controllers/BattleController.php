@@ -66,6 +66,16 @@ class BattleController extends LoggedController
 		);
 
 		$html .= "Счёт: <b>{$damageAtt}<b> : <b>{$damageDef}</b><br>\n";
+
+		$playerAtt->hp -= $damageDef;
+		if ($playerAtt->hp < 0)
+			$playerAtt->hp = 0;
+		$playerAtt->save();
+		$playerDef->hp -= $damageAtt;
+		if ($playerDef->hp < 0)
+			$playerDef->hp = 0;
+		$playerDef->save();
+
 		if ($damageAtt > $damageDef) {
 			// Счётчик победных боёв для статистики
 			$playerAtt->setStateIntVal('world_battle_win_count',
@@ -114,6 +124,8 @@ class BattleController extends LoggedController
 		Funcs::logMessage($log_html_def, 'war', $playerDef->id);
 
 		$data = [
+			'attacker' => $playerAtt,
+			'defender' => $playerDef,
 			'html' => Funcs::applyCodes($html),
 		];
 
@@ -128,30 +140,30 @@ class BattleController extends LoggedController
 
 		$playerAtt = $this->user->player;
 
-		// Создаём бота со статами 90-110% от статов игрока
+		// Создаём бота со статами 50-150% от статов игрока
 		$playerDef = new Player;
 		$playerDef->lvl = $playerAtt->lvl;
 		$playerDef->exp = $playerAtt->exp;
 		$playerDef->nickname = 'Неразумная тварь';
-		$str = $playerAtt->countStr();
-		$minStr = ($str / 100) * 90;
-		$maxStr = ($str / 100) * 110;
+		$str = $playerAtt->str;
+		$minStr = ($str / 100) * 50;
+		$maxStr = ($str / 100) * 150;
 		$playerDef->str = rand(round($minStr), round($maxStr));
-		$def = $playerAtt->countDef();
-		$minDef = ($def / 100) * 90;
-		$maxDef = ($def / 100) * 110;
+		$def = $playerAtt->def;
+		$minDef = ($def / 100) * 50;
+		$maxDef = ($def / 100) * 150;
 		$playerDef->def = rand(round($minDef), round($maxDef));
-		$dex = $playerAtt->countDex();
-		$minDex = ($dex / 100) * 90;
-		$maxDex = ($dex / 100) * 110;
+		$dex = $playerAtt->dex;
+		$minDex = ($dex / 100) * 50;
+		$maxDex = ($dex / 100) * 150;
 		$playerDef->dex = rand(round($minDex), round($maxDex));
-		$sta = $playerAtt->countSta();
-		$minSta = ($sta / 100) * 90;
-		$maxSta = ($sta / 100) * 110;
+		$sta = $playerAtt->sta;
+		$minSta = ($sta / 100) * 50;
+		$maxSta = ($sta / 100) * 150;
 		$playerDef->sta = rand(round($minSta), round($maxSta));
-		$int = $playerAtt->countInt();
-		$minInt = ($int / 100) * 90;
-		$maxInt = ($int / 100) * 110;
+		$int = $playerAtt->int;
+		$minInt = ($int / 100) * 50;
+		$maxInt = ($int / 100) * 150;
 		$playerDef->int = rand(round($minInt), round($maxInt));
 
 		$damageAtt = 0;
@@ -186,6 +198,12 @@ class BattleController extends LoggedController
 		);
 
 		$html .= "Счёт: <b>{$damageAtt}<b> : <b>{$damageDef}</b><br>\n";
+
+		$playerAtt->hp -= $damageDef;
+		if ($playerAtt->hp < 0)
+			$playerAtt->hp = 0;
+		$playerAtt->save();
+
 		if ($damageAtt > $damageDef) {
 			// Счётчик победных боёв для статистики
 			$playerAtt->setStateIntVal('world_battle_win_count',
@@ -208,6 +226,12 @@ class BattleController extends LoggedController
 			$log_html_att .= "Ваша награда: <b>{$amountExp}</b> {exp}";
 
 			$drop_html = [];
+			if ((rand(0, 100) / 100) < 0.05) { // 5% шанс дропа желудей
+				$nuts = rand(1 * $playerAtt->lvl, 3 * $playerAtt->lvl);
+				$drop_html []= '<b>'.$nuts.'</b> {nuts} <b>'.Funcs::declination($nuts,'жёлудь','жёлудя','желудей').'</b>';
+				$playerAtt->nuts += $nuts;
+				$playerAtt->save();
+			}
 			if ((rand(0, 100) / 100) < 0.05) { // 5% шанс дропа ветоши
 				// Выдаём предмет с id = 18 (Ветошь новобранца)
 				$itemEntry = Item::model()->findByPk(18);
@@ -252,6 +276,8 @@ class BattleController extends LoggedController
 		Funcs::logMessage($log_html_att, 'war', $playerAtt->id);
 
 		$data = [
+			'attacker' => $playerAtt,
+			'defender' => $playerDef,
 			'html' => Funcs::applyCodes($html),
 		];
 
